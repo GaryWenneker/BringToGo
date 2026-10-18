@@ -1,55 +1,43 @@
-# BringToGo · Midnight Celebration
+# BringToGo · Winteravond
 
-BringToGo gebruikt voor de kerst- en nieuwjaarsperiode een vaste **dark mode**: warm en feestelijk, zonder sneeuwvlokjes overal of drukke animaties. De eenvoudigste route blijft leidend: uitnodiging openen, naam en hapje invullen, bevestigen.
+De stijl van BringToGo is een sobere, donkere uitnodiging voor mensen die samen iets organiseren. De decemberse sfeer zit in de kleuren, niet in animaties en decoraties. De ervaring moet vertrouwd en eenvoudig aanvoelen, alsof je een nette uitnodiging van een buur ontvangt.
 
-## Ontwerpprincipes
+## Visuele uitgangspunten
 
-- **Warmte op een donkere achtergrond.** Nachtblauw en antraciet zorgen voor rust, dennengroen voor de primaire acties, bordeaux voor de uitnodigingskaart en champagnegoud voor bijzondere details.
-- **Uitnodigingsgevoel boven dashboardgevoel.** De datumkaart is het visuele middelpunt; daarna volgen het gedeelde buffet en de handige balansmeter.
-- **Rustige decoratie.** Lichte sterpuntjes en heel subtiele pulserende sterren. Geen afbeeldingen, snow-canvas, JavaScript-animaties of extra dependencies.
-- **Deelnemen blijft moeiteloos.** Geen nieuwe stappen, accounts, e-mailvereisten of extra velden.
+- **Rustig en eenvoudig:** vlakke achtergronden, duidelijke typografie, ingetogen kleuren, nauwelijks schaduw, geen kleurverlopen of glows.
+- **Feestelijk zonder kerstclichés:** nachtdonker groen, warm crème, gedempt goud en een bordeaux datumkaart. Geen knipperende sterren, vallende sneeuw of glanzende verloopknoppen.
+- **Echte buurtcommunicatie:** korte, gewone Nederlandse teksten zonder reclamekreten. Duidelijke knop: 'Ik neem iets mee'.
+- **De taak staat centraal:** bekijk bestaande hapjes en voeg er zonder account een toe. Verder niets verplicht.
 
 ## Kleuren
 
-| Toepassing | Token | Hex |
+| Toepassing | CSS-variabele | Waarde |
 | --- | --- | --- |
-| Achtergrond | `--paper` | `#0a1119` |
-| Hoge oppervlakken | `--white` | `#17242c` |
-| Primaire tekst | `--ink` | `#f7f1e7` |
-| Secundaire tekst | `--muted` | `#b6c1bf` |
-| Primair groen | `--green` | `#286b57` |
-| Subtiel groen | `--green-soft` | `#17372f` |
-| Borders | `--line` | `#31434a` |
-| Goudaccent | `--holiday-gold` | `#e4c68c` |
-| Kerstgroen | `--holiday-pine` | `#17483d` |
-| Bordeaux | `--holiday-wine` | `#592b3e` |
+| Achtergrond | `--paper` | `#111915` |
+| Kaarten | `--white` | `#1c2922` |
+| Tekst | `--ink` | `#f0eee6` |
+| Secundaire tekst | `--muted` | `#b8c0b8` |
+| Actieknoppen | `--green` | `#315e48` |
+| Lichte accenten | `--holiday-gold` | `#c5ad82` |
+| Borderranden | `--line` | `#43534a` |
+| Datumkaart | `--holiday-wine` | `#503a3d` |
 
-Typografie: **DM Sans** voor bediening, navigatie en lopende tekst; **Libre Caslon Display** voor grote koppen en warme uitnodigingsteksten. Beide stonden al in de applicatie.
+Typografie blijft DM Sans voor leesbare interface-tekst en Libre Caslon Display voor de uitnodigingskoppen.
 
 ## Componenten
 
-- **Header:** donker glasachtig vlak, dun gouden scheidingslijntje, warme gouden markering bij het logo.
-- **Hero:** afgeronde, diepdonkere uitnodiging met gradient in groen/bordeaux en een discreet sterrenveld.
-- **Datumkaart:** bordeaux met gouden rand en champagneaccenten; blijft een opvallende 'ticket'-vorm.
-- **Actieknoppen:** contrastrijk dennengroen, zachte gouden focusring en hoverglow.
-- **Hapjeskaarten:** iets lichter dan de pagina voor helder onderscheid, met subtiele randverlichting bij hover.
-- **Balansmeter:** donkergroene panelen met champagnekleurige voortgangsstroken.
-- **Drankjes:** bordeaux accentpaneel.
-- **Dialogen, formulieren en foutmeldingen:** dezelfde donkere kleuren met zichtbare tekst, labels, borders en feedback.
-- **Mijn overzicht, herstelpagina en bijeenkomstbeheer:** dezelfde componentafwerking.
+De donkere header heeft een gewone scheidingslijn. De hero gebruikt een gelijkmatig dennengroen vlak. De bordeaux datumkaart is recht geplaatst, zonder schaduw of scheefstand. De hapjeskaarten en de aanmeldmodal hebben scherpe, subtiel afgeronde hoeken. Knoppen zijn vlak en worden bij hover alleen iets lichter. De verdeling van de hapjes is een rustig groen paneel, de drankinformatie een bordeaux paneel.
 
-## Responsiviteit en toegankelijkheid
-
-Bestaande breakpoints blijven intact: 1000, 760 en 520 px, met een enkele kolom voor de belangrijkste inhoud op smalle telefoons. Interactieve invoervelden blijven voldoende hoog, focusindicatoren zijn zichtbaar met toetsenbord en `prefers-reduced-motion` schakelt de decoratieve animatie uit. Bij Windows High Contrast/forced-colors behouden essentiële vlakken hun contouren.
+Alle pagina's delen deze afwerking, waaronder de startpagina, persoonlijke lijst, nieuwe bijeenkomst en beheerformulier.
 
 ## Implementatie
 
-`src/app/holiday-theme.css` bevat alleen de seizoensgebonden overrides en staat **na** `globals.css` geïmporteerd in `src/app/layout.tsx`. Dat houdt de bestaande componentlogica en layouts gescheiden van de kerststijl. Voor een toekomstige andere campagne hoeft de applicatielogica niet herschreven te worden.
+De bestaande applicatie gebruikt `src/app/globals.css`, gevolgd door `src/app/holiday-theme.css`. De bovenste dark-mode regels blijven de brede compatibiliteitsbasis; de laatste sectie onder de kop **Winteravond** is de definitieve, ingetogen vormgeving. Nieuwe ontwerpwijzigingen moeten op termijn in één samenhangende themalaag worden samengebracht. Functionaliteit of API's zijn niet gewijzigd.
 
-## Controles vóór publicatie
+## Controleren
 
-1. `npm ci && npm test && npm run build && npm run typecheck`
-2. Beoordeel de startpagina, aanmeldmodal, beheerformulier, Mijn overzicht en persoonlijke-link-herstelpagina.
-3. Controleer desktop, 390 px mobiel en 320 px mobiel op horizontale overflow.
-4. Controleer toetsenbordfocus, foutmeldingen, ingeklapte extra velden en verminderde beweging.
-5. Controleer na Netlify-deploy of Postgres-verbinding en opslaan/ophalen van hapjes werken.
+1. `npm ci && npm test && npm run build && npm run typecheck`.
+2. Bekijk desktop, tablet en telefoons van 390 en 320 px.
+3. Open aanmelden, filters, Mijn overzicht, nieuwe bijeenkomst en beheer.
+4. Controleer de toetsenbordfocus, contrast, foutmeldingen en `prefers-reduced-motion`.
+5. Bevestig op Netlify dat zowel de site als de gedeelde PostgreSQL-lijst werkt.
