@@ -22,6 +22,7 @@ const flakes = Array.from({ length: 112 }, (_, index) => {
       opacity: crystal ? 0.65 + (index % 3) * .1 : soft ? .30 + (index % 4) * .10 : .52 + (index % 5) * .09,
       animationDelay: `-${(index * 13) % 27}s`,
       animationDuration: `${duration}s`,
+      '--calm-duration': `${Math.round(duration * 1.45)}s`,
       '--drift': `${drift}px`,
       '--sway': `${24 + (index * 5) % 64}px`,
       '--spin': `${((index * 37) % 160) - 80}deg`,
@@ -36,7 +37,7 @@ export default function ChristmasAtmosphere() {
       <div className="christmas-garland" />
       <div className="christmas-lights">
         {Array.from({ length: 14 }, (_, i) => (
-          <span className="light-drop" key={i} style={{ '--bulb': i % 3 === 0 ? '#ffe5b4' : '#ffd18a', '--twinkle-delay': `${-i * 0.43}s` } as CSSProperties}>
+          <span className="light-drop" key={i} style={{ '--bulb': i % 3 === 0 ? '#ffe5b4' : '#ffd18a', '--twinkle-delay': `${-i * 0.43}s`, '--twinkle-duration': `${2.2 + ((i * 7) % 8) * 0.32}s` } as CSSProperties}>
             <i />
           </span>
         ))}
