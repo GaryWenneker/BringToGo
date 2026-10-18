@@ -25,6 +25,7 @@ const flakes = Array.from({ length: 112 }, (_, index) => {
       '--drift': `${drift}px`,
       '--sway': `${24 + (index * 5) % 64}px`,
       '--spin': `${((index * 37) % 160) - 80}deg`,
+      '--rest-top': `${5 + ((index * 31) % 89)}vh`,
     } as CSSProperties,
   };
 });
