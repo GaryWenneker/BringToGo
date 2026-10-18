@@ -424,3 +424,14 @@ body > :not(.christmas-atmosphere) { position: relative; z-index: 1; }
   .site-header .brand { gap: 4px; }
   .site-header .my-overview-link { padding: 7px; }
 }
+
+/* Keep the longer local name readable even on compact phones. */
+@media(max-width:760px) {
+  .site-footer { flex-wrap: wrap; column-gap: 14px; row-gap: 6px; }
+  .site-footer .footer-brand { width: 100%; }
+  .site-footer > svg { margin-left: 0; }
+}
+@media(max-width:340px) {
+  .site-header .brand-mark { display: none; }
+  .site-header .brand-main { font-size: 15px; }
+}
