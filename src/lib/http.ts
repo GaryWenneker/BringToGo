@@ -12,7 +12,7 @@ export async function session() {
 }
 export async function body(request: Request) {
   const origin = request.headers.get('origin');
-  if (!origin || new URL(origin).host !== new URL(request.url).host) throw new AppError('Open het formulier opnieuw via de uitnodigingslink.', 403);
+  if (!origin || new URL(origin).host !== new URL(process.env.URL || request.url).host) throw new AppError('Open het formulier opnieuw via de uitnodigingslink.', 403);
   if (!request.headers.get('content-type')?.includes('application/json')) throw new AppError('Ongeldig formulier.');
   const raw = await request.text();
   if (raw.length > 12000) throw new AppError('Het formulier is te groot.', 413);
