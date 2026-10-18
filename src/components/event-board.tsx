@@ -25,6 +25,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   },[base]);
   useEffect(()=>{ void refresh(); const timer=setInterval(()=>{if(!document.hidden)void refresh();},15000); const onFocus=()=>void refresh(); window.addEventListener('focus',onFocus); return()=>{clearInterval(timer);window.removeEventListener('focus',onFocus);}; },[refresh]);
   useEffect(()=>{if(!toast)return;const timer=setTimeout(()=>setToast(''),5000);return()=>clearTimeout(timer);},[toast]);
+  useEffect(() => { if (window.location.hash === '#mijn-hapjes') setFilter('mijn'); }, []);
   const event=state?.event || (eventId===defaultEvent.id ? {...defaultEvent,isOrganizer:false} : null);
   const items=state?.contributions||[];
   const visible=items.filter(c=>(filter==='alles'||filter==='mijn'&&c.mine||filter===c.category) && (!dietOnly||c.diets.includes('Vegetarisch')||c.diets.includes('Vegan')) && `${c.dish} ${c.name} ${c.notes}`.toLowerCase().includes(query.toLowerCase()));
@@ -60,7 +61,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   }
   function patch<K extends keyof ContributionInput>(key:K,value:ContributionInput[K]){setForm(f=>({...f,[key]:value}));}
   async function share() {
-    const url=`${window.location.origin}/e/${eventId}`;
+    const url=`${window.location.origin}/`;
     try { if(navigator.share) await navigator.share({title:event?.title,text:'Wat neem jij mee? Kies je hapje op BringToGo.',url});else {await navigator.clipboard.writeText(url);setToast('Uitnodigingslink gekopieerd. Plak hem in de buurtapp!');} }catch(e){if((e as Error).name!=='AbortError')setToast(`Deel deze link: ${url}`);}
   }
   async function saveAccess() {
@@ -77,7 +78,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   }
   if(manage&&state)return <EventEditor initial={state.event} onSaved={()=>{setManage(false);void refresh();}} onCancel={()=>setManage(false)}/>;
   return <><Header/><main className="page-shell">
-    <div className="breadcrumb"><Link href="/">Samen iets lekkers</Link><span>/</span><span>{event?.location||'Jouw bijeenkomst'}</span></div>
+    <div className="breadcrumb"><span>Buurtborrel in Alem</span><span>/</span><span>{event?.location||'Hart van Alem'}</span></div>
     <section className="hero" aria-labelledby="event-title">
       <div className="hero-copy"><div className="eyebrow"><span/> EEN HAPJE MEENEMEN</div><h1 id="event-title">{event?.title||'Even de tafel dekken…'}</h1><p className="hero-intro">Neem iets lekkers mee.</p><p className="hero-text">{event?.description||'De uitnodiging wordt opgehaald.'}</p>
         <div className="hero-actions"><button className="button button-primary" onClick={()=>openForm()} disabled={!state||state.event.closed}><Plus size={19}/> {state?.event.closed?'Aanmelden gesloten':'Ik neem iets mee'}</button><span className="no-account"><Check size={15}/> Alleen je naam en je hapje</span></div>
@@ -87,7 +88,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
     </section>
     <div className="overview-bar"><div><span className="stat-icon"><Users size={20}/></span><strong>{state?.households??'—'}</strong><span>huishoudens</span></div><div><span className="stat-icon"><CookingPot size={20}/></span><strong>{state?items.length:'—'}</strong><span>schaaltjes op de lijst</span></div><div><span className="stat-icon"><HeartIcon/></span><strong>{state?.guests??'—'}</strong><span>personen opgegeven</span></div><button className="share-link" onClick={share}><Share2 size={16}/> Deel met de buurt</button></div>
     {error&&<div className="notice error-notice" role="alert"><Info size={19}/><div><strong>{state?'De lijst kon niet worden vernieuwd.':'De gedeelde lijst is nog niet bereikbaar.'}</strong><p>{error}</p></div><button className="button button-outline" onClick={()=>void refresh()}><RefreshCw size={16}/> Opnieuw</button></div>}
-    <div className="board-layout"><section className="buffet" aria-labelledby="buffet-heading"><div className="section-heading"><div><div className="eyebrow muted">HAPJESLIJST</div><h2 id="buffet-heading">Dit komt op tafel<span className="count-badge">{items.length}</span></h2><p>Hier zie je wie wat meeneemt.</p></div><button className="icon-button" onClick={exportList} disabled={!state} aria-label="Download de hapjeslijst als CSV"><ArrowDownToLine size={19}/></button></div>
+    <div className="board-layout"><section className="buffet" id="mijn-hapjes" aria-labelledby="buffet-heading"><div className="section-heading"><div><div className="eyebrow muted">HAPJESLIJST</div><h2 id="buffet-heading">Dit komt op tafel<span className="count-badge">{items.length}</span></h2><p>Hier zie je wie wat meeneemt.</p></div><button className="icon-button" onClick={exportList} disabled={!state} aria-label="Download de hapjeslijst als CSV"><ArrowDownToLine size={19}/></button></div>
       {(items.some(c=>c.mine)||event?.isOrganizer)&&<div className="personal-access"><Link2 size={17}/><p>Welkom terug. Je kunt je eigen bijdrage altijd aanpassen.</p><button onClick={()=>void saveAccess()}>Bewaar mijn persoonlijke link</button></div>}
       <div className="filters" role="group" aria-label="Filter op categorie"><button className={filter==='alles'?'filter active':'filter'} aria-pressed={filter==='alles'} onClick={()=>setFilter('alles')}>Alles <span>{items.length}</span></button>{categories.map(c=><button key={c.id} className={filter===c.id?'filter active':'filter'} aria-pressed={filter===c.id} onClick={()=>setFilter(c.id)}>{c.label} <span>{count(c.id)}</span></button>)}<button className={filter==='mijn'?'filter active':'filter'} aria-pressed={filter==='mijn'} onClick={()=>setFilter('mijn')}>Mijn hapjes <span>{items.filter(c=>c.mine).length}</span></button></div>
       <div className="search-row"><label className="search"><Search size={17}/><input placeholder="Zoek een hapje of buur…" value={query} onChange={e=>setQuery(e.target.value)} aria-label="Zoek in de hapjeslijst"/></label><button className={`diet-filter ${dietOnly?'selected':''}`} onClick={()=>setDietOnly(v=>!v)} aria-pressed={dietOnly}><Leaf size={15}/> Vega</button></div>
