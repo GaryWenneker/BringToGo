@@ -1,0 +1,378 @@
+/*
+ * BringToGo · Midnight Celebration
+ * Christmas / New Year dark-mode design system.
+ * Loaded after globals.css so existing layout, breakpoints and behavior stay intact.
+ * No decorative images, JavaScript or animation dependencies.
+ */
+:root {
+  color-scheme: dark;
+  --paper: #0a1119;
+  --white: #17242c;
+  --ink: #f7f1e7;
+  --muted: #b6c1bf;
+  --green: #286b57;
+  --green-soft: #17372f;
+  --line: #31434a;
+  --orange: #e4c68c;
+  --holiday-gold: #e4c68c;
+  --holiday-cream: #f7f1e7;
+  --holiday-pine: #17483d;
+  --holiday-wine: #592b3e;
+  --holiday-surface: #131f29;
+  --holiday-surface-high: #1b2b34;
+}
+html { background: var(--paper); }
+body {
+  background:
+    radial-gradient(ellipse at 92% 5%, rgba(109, 45, 61, .22), transparent 32%),
+    radial-gradient(ellipse at 4% 29%, rgba(24, 92, 73, .17), transparent 33%),
+    radial-gradient(circle at 83% 58%, rgba(194, 151, 81, .06), transparent 25%),
+    linear-gradient(155deg, #0a1119 0%, #0e1b24 52%, #09131b 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  min-height: 100vh;
+}
+::selection { background: #bd925e; color: #101820; }
+a { transition: color .18s ease; }
+.site-header {
+  position: relative;
+  border-color: rgba(228, 198, 140, .20);
+  background: linear-gradient(90deg, rgba(12, 25, 30, .85), rgba(30, 25, 37, .62));
+}
+.site-header::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  left: 48px;
+  right: 48px;
+  bottom: -1px;
+  background: linear-gradient(90deg, transparent, rgba(228, 198, 140, .6) 50%, transparent);
+  pointer-events: none;
+}
+.brand { color: var(--holiday-cream); }
+.brand-mark {
+  color: var(--holiday-gold);
+  filter: drop-shadow(0 0 13px rgba(228, 198, 140, .2));
+}
+.brand-dot, .footer-brand { color: var(--holiday-gold); }
+.how-link, .my-overview-link { color: #d8e0db; }
+.how-link:hover, .my-overview-link:hover, .breadcrumb a:hover { color: var(--holiday-gold); }
+.button {
+  border-radius: 9px;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.button-primary {
+  background: linear-gradient(130deg, #2c775d, #225a4c);
+  border: 1px solid #7eaf83;
+  color: #fff9ef;
+  box-shadow: inset 0 1px 0 #ffffff21, 0 8px 24px #020c0933, 0 0 0 1px #a5bc7530;
+}
+.button-primary:hover:not(:disabled) {
+  background: linear-gradient(130deg, #35856b, #2b6e59);
+  border-color: var(--holiday-gold);
+  box-shadow: 0 0 0 1px #e4c68c33, 0 0 24px #d9b5792f;
+}
+.button-outline {
+  background: rgba(228, 198, 140, .05);
+  border-color: rgba(228, 198, 140, .45);
+  color: var(--holiday-cream);
+}
+.button-outline:hover:not(:disabled) {
+  background: rgba(228, 198, 140, .12);
+  border-color: var(--holiday-gold);
+}
+button:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--holiday-gold);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(228, 198, 140, .14);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--holiday-gold) !important;
+  box-shadow: 0 0 0 3px rgba(228, 198, 140, .19);
+}
+button:disabled { opacity: .5; }
+.breadcrumb { color: #aebeba; }
+.breadcrumb > span:last-child { color: var(--holiday-gold); }
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(228, 198, 140, .28);
+  border-radius: 23px;
+  margin: 12px 0 30px;
+  padding: 44px 44px 48px;
+  background:
+    radial-gradient(ellipse at 104% 4%, rgba(164, 85, 83, .25), transparent 56%),
+    radial-gradient(circle at 4% 92%, rgba(35, 117, 88, .18), transparent 50%),
+    linear-gradient(120deg, rgba(26, 47, 49, .91), rgba(19, 27, 39, .93) 57%, rgba(40, 30, 44, .95));
+  box-shadow: 0 22px 75px #02060d52, inset 0 1px 0 #ffffff0d;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -100px;
+  width: 520px;
+  height: 480px;
+  background:
+    radial-gradient(circle at 12% 18%, #f1d59d 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 38%, #f1d59d 0 1px, transparent 2px),
+    radial-gradient(circle at 36% 75%, #f1d59d 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 88% 65%, #f1d59d 0 1px, transparent 2px),
+    radial-gradient(circle at 45% 12%, #f1d59d 0 1px, transparent 2px);
+  opacity: .45;
+  pointer-events: none;
+  z-index: -1;
+}
+.hero h1 { color: #fff8ed; text-wrap: balance; text-shadow: 0 2px 24px #050c1670; }
+.hero-intro { color: #e8ca91; }
+.hero-text { color: #d0d9d3; }
+.eyebrow, .eyebrow.muted { color: var(--holiday-gold); }
+.eyebrow > span { background: var(--holiday-gold); box-shadow: 0 0 8px #e4c68c80; }
+.no-account { color: #c5d3ce; }
+.no-account svg { color: #97d2a8; }
+.hero-aside { z-index: 1; }
+.date-ticket {
+  background: linear-gradient(145deg, #5b2c42 0%, #412535 50%, #252b34 100%);
+  border: 1px solid rgba(248, 218, 160, .65);
+  color: #fff8ec;
+  border-radius: 15px;
+  box-shadow: 8px 10px 0 rgba(10, 15, 23, .36), 0 20px 45px #05091270, inset 0 0 0 3px #efc88a13;
+}
+.ticket-top { color: #f0d2a0; }
+.ticket-top svg, .ticket-line svg, .calendar-link svg { color: var(--holiday-gold); }
+.date-main > strong { color: #fff8ea; }
+.date-main > div { color: #ffebc6; }
+.date-main b { color: #ddbcae; }
+.ticket-divider { border-color: rgba(242, 211, 162, .48); }
+.ticket-divider::before, .ticket-divider::after {
+  background: #1c2630;
+  border-color: rgba(248, 218, 160, .45);
+}
+.ticket-line { color: #f9eee3; }
+.calendar-link {
+  color: #ffdfac;
+  border-color: rgba(228, 198, 140, .42);
+}
+.calendar-link:hover:not(:disabled) { color: #fff; }
+.ticket-caption { color: #edcf96; }
+.little-star { color: var(--holiday-gold); text-shadow: 0 0 22px #edcf9680; animation: holiday-twinkle 6s ease-in-out infinite; }
+.star-two { color: #e5a99e; animation-delay: 2.5s; }
+@keyframes holiday-twinkle { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+.overview-bar {
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 18px 20px;
+  background: rgba(24, 40, 48, .74);
+  box-shadow: inset 0 1px 0 #ffffff0b;
+}
+.overview-bar strong { color: #fff8eb; }
+.overview-bar > div > span:last-child { color: #c0cfca; }
+.stat-icon { color: var(--holiday-gold); }
+.share-link { color: var(--holiday-gold); }
+.share-link:hover { color: #fff6e7; }
+.section-heading h2 { color: #fff4e2; }
+.section-heading p { color: #bdccc7; }
+.count-badge {
+  background: #254137;
+  border-color: #50765b;
+  color: #f3e7d0;
+}
+.icon-button { color: #b6c8c0; }
+.icon-button:hover { color: #f2d59e; background: rgba(228, 198, 140, .11); }
+.filter {
+  border-color: #3b535a;
+  color: #d4ddd8;
+  background: rgba(20, 37, 44, .65);
+  border-radius: 7px;
+}
+.filter:hover { border-color: #9c9271; background: #233c41; }
+.filter.active {
+  background: #295e4d;
+  color: #fff6e5;
+  border-color: #a9bd85;
+}
+.search {
+  border-color: #435158;
+  background: #14232c;
+  color: #b9c6c2;
+  border-radius: 8px;
+}
+.search input, .search input:focus, .search input:focus-visible {
+  color: #fff8e9;
+  background: transparent;
+  border: 0 !important;
+  box-shadow: none;
+  outline: none;
+}
+.search:focus-within { border-color: var(--holiday-gold); box-shadow: 0 0 0 3px #e4c68c30; }
+.diet-filter {
+  background: #172933;
+  border-color: #3d5558;
+  color: #d1ded6;
+  border-radius: 8px;
+}
+.diet-filter.selected { background: #2b533e; border-color: #87ac80; color: #f2ffed; }
+.dish-card, .my-event-card, .editor-card {
+  background: linear-gradient(160deg, #1c2c33, #14232c);
+  border-color: #3e4e51;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px #060d1828, inset 0 1px 0 #ffffff0a;
+}
+.dish-card { transition: border-color .18s, transform .18s, box-shadow .18s; }
+.dish-card:hover {
+  border-color: #b29764;
+  box-shadow: 0 10px 28px #030c163b, 0 0 0 1px #e4c68c16;
+  transform: translateY(-2px);
+}
+.category-label { color: #c7b892; }
+.dish-card h3 { color: #fff5e9; }
+.dish-notes, .dish-bottom > div > span, .dish-bottom strong small { color: #bdc8c2; }
+.dish-emoji, .category-groente .dish-emoji, .category-zoet .dish-emoji {
+  background: #29463c;
+  border: 1px solid #53664b;
+}
+.category-zoet .dish-emoji { background: #563849; border-color: #866178; }
+.category-kaas .dish-emoji { background: #55462e; border-color: #937a4e; }
+.diet-tags > span {
+  background: #2b4839;
+  color: #d4f5d4;
+  border: 1px solid #46684e;
+}
+.dish-bottom { border-color: #39474b; }
+.avatar { background: #49394a; color: #ffdfa6; }
+.dish-bottom > svg { color: #a5d7ac; }
+.dietary-needs { color: #cfcbc0; }
+.add-card, .empty-state {
+  background: rgba(28, 49, 49, .40);
+  border-color: #667363;
+  color: #e9d6ab;
+  border-radius: 12px;
+}
+.add-card:hover { background: #223c39; border-color: var(--holiday-gold); }
+.add-card > span { background: #345643; color: #f8db9f; }
+.add-card strong, .empty-state h3 { color: #fff4e4; }
+.add-card small, .empty-state p { color: #bdcbc3; }
+.sync-note { color: #b5c4bf; }
+.status-dot { background: #a6dc99; box-shadow: 0 0 8px #a6dc9955; }
+.status-dot.offline { background: #f0a883; box-shadow: none; }
+.balance-card {
+  background: linear-gradient(155deg, #203e36, #162d2f);
+  border-color: #527359;
+  border-radius: 12px;
+}
+.side-heading { color: #fff2d9; }
+.side-heading > span:last-child { color: var(--holiday-gold); }
+.balance-card > p, .balance-item small, .balance-note { color: #c2d6c6; }
+.balance-item { color: #e9f3e9; }
+.balance-item strong { color: #fff6e8; }
+.progress-track { background: #284c40; }
+.progress-track > span { background: linear-gradient(90deg, #c5a56b, #efd59c); }
+.balance-note { border-color: #486b5e; }
+.drinks-card {
+  background: linear-gradient(145deg, #4c2e3c, #292734);
+  border-color: #855968;
+  border-radius: 12px;
+}
+.drinks-icon { color: #f1c58c; }
+.drinks-card h3 { color: #ffe9d0; }
+.drinks-card p { color: #e3c7c8; }
+.idea-card h3 { color: #fff0df; }
+.idea-card p { color: #bfcac6; }
+.idea-card button { color: #ecd8b2; }
+.idea-card button:hover { color: #fff9ed; }
+.how-it-works { border-color: #405058; }
+.how-it-works h2 { color: #fff0dc; }
+.how-step > span { color: var(--holiday-gold); }
+.how-step h3 { color: #f4efe7; }
+.how-step p, .privacy-note { color: #aebfb8; }
+.site-footer { border-color: #36484b; color: #b9c5c0; }
+.site-footer > svg { color: #bd947d; }
+.notice {
+  background: #3e302f;
+  border-color: #946858;
+  color: #fff1dd;
+}
+.notice p { color: #f1c4ac; }
+.signup-dialog {
+  background: #14222b;
+  border: 1px solid #ae925f;
+  color: #f7f1e7;
+  box-shadow: 0 26px 100px #02070ccc;
+}
+.signup-dialog::backdrop { background: rgba(3, 8, 15, .8); backdrop-filter: blur(5px); }
+.dialog-content {
+  background: radial-gradient(circle at 90% 2%, rgba(137, 70, 75, .19), transparent 42%);
+}
+.dialog-content h2, .editor-heading h1, .access-page h1, .my-events-shell h1 { color: #fff3df; }
+.dialog-intro, .editor-heading > p, .access-page p { color: #c7d3cd; }
+form label, .extra-fields legend { color: #e6eee7; }
+input:not([type=checkbox]), select, textarea {
+  background: #0f1c25;
+  border: 1px solid #576465;
+  border-radius: 8px;
+  color: #fbf5e8;
+}
+input::placeholder, textarea::placeholder { color: #aab8b4; }
+select option { background: #14232c; color: #fff5e9; }
+input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert(.88) sepia(.16); }
+.extra-details { border-color: #46585c; background: rgba(6, 15, 23, .24); }
+.extra-details summary { color: #f5e8d1; }
+.extra-details summary > span:not(:last-child) { color: #bbcac5; }
+.extra-details[open] summary { border-color: #46585c; }
+.field-help, .form-footnote { color: #bfcbc2; }
+.form-error {
+  color: #ffccab;
+  background: #4c2d32;
+  border-color: #9e5761;
+}
+.duplicate-note { background: #4d4033; color: #ffe2b3; }
+.duplicate-note.exact { background: #4e2d36; color: #ffd2bb; }
+.delete-link, .delete-confirm > button:first-of-type { color: #ffbaad; }
+.delete-confirm { border-color: #4d5b5d; }
+.toast {
+  background: #245c4c;
+  border: 1px solid #91b38d;
+  color: #fff9ed;
+  box-shadow: 0 12px 40px #040c12a6;
+}
+.back-link, .editor-tip { color: #d7c59f; }
+.form-step > span { background: #355044; color: #f1d6a2; }
+.editor-card { border-color: #58615d; }
+.personal-access, .restore-card {
+  background: #1c3831;
+  border-color: #527961;
+  color: #e8f2e7;
+}
+.personal-access svg, .restore-card > svg { color: #efcf94; }
+.personal-access button { color: #ffe3aa; }
+.my-event-card:hover { background: #243d3a; border-color: #998760; }
+.my-event-card p, .my-intro, .restore-card p { color: #c3d1ca; }
+.my-event-label { color: #e2c58d; }
+.restore-card h2 { color: #fff3e5; }
+@media (max-width: 1000px) {
+  .hero { padding: 35px 30px; }
+}
+@media (max-width: 760px) {
+  .site-header::after { left: 20px; right: 20px; }
+  .hero { padding: 30px 24px; gap: 23px; border-radius: 18px; }
+  .overview-bar { padding: 15px; }
+}
+@media (max-width: 520px) {
+  .hero { margin: 8px 0 24px; padding: 27px 20px 29px; gap: 16px; }
+  .hero::before { right: -220px; opacity: .22; }
+  .hero h1 { font-size: clamp(39px, 11vw, 51px); }
+  .date-ticket { box-shadow: 4px 7px 0 #070d17a1, 0 15px 32px #0408125e; }
+  .overview-bar .share-link { border-color: #44565a; }
+  .signup-dialog { width: calc(100% - 18px); }
+  .dialog-content { padding: 27px 22px 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .little-star { animation: none; }
+  .dish-card:hover { transform: none; }
+}
+@media (forced-colors: active) {
+  .hero, .date-ticket, .dish-card, .signup-dialog, .balance-card, .drinks-card { border: 1px solid CanvasText; }
+  .button-primary { border: 1px solid ButtonText; }
+}
