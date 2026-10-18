@@ -1,19 +1,32 @@
 import type { CSSProperties } from 'react';
 
-// Fixed positions avoid hydration differences and keep snowfall extremely lightweight.
-const flakes = Array.from({ length: 58 }, (_, index) => {
-  const left = (index * 37 + 11) % 100;
-  const size = 2 + ((index * 7) % 8);
-  const drift = ((index * 17) % 90) - 45;
+/**
+ * Photographic-feeling snowfall uses three layers of flakes: far-away points,
+ * soft near-camera snow and visibly shaped ice crystals. All positions and
+ * durations are deterministic to prevent hydration differences.
+ */
+const flakes = Array.from({ length: 112 }, (_, index) => {
+  const lane = (index * 47.31 + (index % 9) * 7.1) % 100;
+  const layer = index % 9;
+  const crystal = layer === 3 || layer === 8;
+  const soft = layer === 1 || layer === 6;
+  const size = crystal ? 11 + (index % 4) * 3 : soft ? 9 + (index % 5) * 3 : 3 + (index % 6);
+  const drift = ((index * 23) % 170) - 85;
+  const duration = (soft ? 8 : crystal ? 12 : 16) + (index * 11) % 16;
   return {
-    left: `${left}%`,
-    width: `${size}px`,
-    height: `${size}px`,
-    opacity: 0.28 + ((index * 13) % 55) / 100,
-    animationDelay: `-${(index * 11) % 23}s`,
-    animationDuration: `${13 + ((index * 7) % 19)}s`,
-    '--drift': `${drift}px`,
-  } as CSSProperties;
+    className: `snow-particle ${crystal ? 'snow-crystal' : soft ? 'snow-soft' : 'snow-small'}`,
+    style: {
+      left: `${lane}%`,
+      width: `${size}px`,
+      height: `${size}px`,
+      opacity: crystal ? 0.65 + (index % 3) * .1 : soft ? .30 + (index % 4) * .10 : .52 + (index % 5) * .09,
+      animationDelay: `-${(index * 13) % 27}s`,
+      animationDuration: `${duration}s`,
+      '--drift': `${drift}px`,
+      '--sway': `${24 + (index * 5) % 64}px`,
+      '--spin': `${((index * 37) % 160) - 80}deg`,
+    } as CSSProperties,
+  };
 });
 
 export default function ChristmasAtmosphere() {
@@ -30,7 +43,7 @@ export default function ChristmasAtmosphere() {
       <span className="hanging-star star-left">✦</span>
       <span className="hanging-star star-right">★</span>
       <div className="falling-snow">
-        {flakes.map((style, index) => <i className="snow-particle" style={style} key={index} />)}
+        {flakes.map((flake, index) => <i className={flake.className} style={flake.style} key={index} />)}
       </div>
     </div>
   );
