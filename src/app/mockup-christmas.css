@@ -1,0 +1,407 @@
+/*
+ * Kerst in Alem — actual web components, laid out after previous theme CSS.
+ * The tree branches/step illustrations are separate decorative SVG assets,
+ * not screenshot content. Forms, links, buttons and dishes remain interactive.
+ */
+:root {
+  --paper:#071d16; --white:#133728; --ink:#fff5e5; --muted:#c9d7cd;
+  --green:#286746; --line:#5d765b; --holiday-gold:#f0bc75;
+}
+body {
+  background:
+    radial-gradient(ellipse at 45% -9%,rgba(175,105,39,.15),transparent 35%),
+    radial-gradient(ellipse at 104% 52%,rgba(112,43,28,.15),transparent 40%),
+    linear-gradient(180deg,#061d16 0%,#09291f 51%,#061a15 100%);
+}
+.christmas-atmosphere { z-index:6; }
+.christmas-garland {
+  top:-2px;
+  height:148px;
+  opacity:1;
+  background: url('/kerst-guirlande.svg') top center / auto 148px repeat-x;
+  filter:drop-shadow(0 5px 8px #0007);
+}
+.christmas-lights { top:12px; opacity:.86; }
+.light-drop i {
+  box-shadow:0 0 10px 5px #ffca7bbb, 0 0 32px 12px #db87386b, 0 0 55px 24px #b3662840;
+}
+.hanging-star { top:94px; }
+.snow-particle { box-shadow:0 0 5px 1px #ffffffa0; }
+.site-header { padding-top:145px; border-bottom-color:#a68e636b; }
+.site-header .brand-main { font-size:clamp(22px,2.55vw,32px); }
+.site-header .brand-sub { color:#f6cc8f; }
+.site-header nav a { color:#f8efde; }
+.site-header nav a:hover { color:#f4cc8c; }
+.page-shell { position:relative; }
+.page-shell::before {
+  content:"";
+  position:absolute;top:0;left:-30px;right:-30px;height:50px;
+  background:radial-gradient(ellipse at 27% 0%,#f4b76027,transparent 60%);
+  pointer-events:none;
+}
+.hero {
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(235px,.8fr);
+  align-items:end;
+  gap:20px;
+  margin:12px 0 33px;
+  min-height:425px;
+  padding:38px clamp(22px,4vw,45px);
+  background:
+    radial-gradient(ellipse at 12% 0%,#305640,transparent 60%),
+    linear-gradient(110deg,#102f24 15%,#0c2a22 60%,#182c25 100%);
+  border:1px solid #cfb47d99;
+  border-radius:20px;
+  box-shadow:0 25px 70px #0008, inset 0 1px 0 #f8dbbb31;
+}
+.hero::before {
+  height:13px;
+  background:
+    radial-gradient(ellipse at 9% 0%,#fbffff 0 50%,transparent 55%),
+    radial-gradient(ellipse at 29% 0%,#e6fff7 0 40%,transparent 51%),
+    radial-gradient(ellipse at 54% 0%,#fbffff 0 50%,transparent 55%),
+    radial-gradient(ellipse at 82% 0%,#fbffff 0 38%,transparent 52%);
+  filter:blur(3px);
+  z-index:3;
+}
+.alem-winter-photo {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:38%;
+  width:62%;
+  height:100%;
+  min-height:0;
+  grid-column:auto;grid-row:auto;
+  margin:0;border:0;border-radius:0 19px 19px 0;
+  background-position:center 39%;
+  background-size:cover;
+  box-shadow:none;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+}
+.alem-winter-photo::after {
+  background:
+    linear-gradient(90deg,#09261fe8 0%,#0d30239e 24%,transparent 65%),
+    linear-gradient(0deg,#061e19e8,transparent 58%),
+    radial-gradient(ellipse at 75% 15%,#f7ad4d33,transparent 50%);
+}
+.alem-winter-photo figcaption { right:15px;left:auto;bottom:10px;font-size:12px; }
+.hero-copy {
+  grid-column:1;grid-row:1;
+  z-index:1;
+  max-width:610px;
+  align-self:center;
+  text-shadow:0 3px 14px #04130ba3;
+}
+.hero h1 {
+  font-size:clamp(45px,5.25vw,72px);
+  line-height:1.05;
+  color:#fff4e2;
+}
+.hero .eyebrow { font-size:12px;letter-spacing:1.8px;color:#edc88b; }
+.hero-intro { font-size:clamp(19px,2.3vw,25px);color:#ffdaaa; }
+.hero-text { color:#ecf0e6;font-size:14px;line-height:1.8;max-width:455px; }
+.hero-aside {
+  grid-column:2;grid-row:1;
+  align-self:end;justify-self:end;
+  max-width:280px;width:100%;
+  padding:0;
+  z-index:1;
+}
+.date-ticket {
+  background:linear-gradient(155deg,#70404aeb,#3d2529ed);
+  border:1px solid #f4cb87bb;
+  border-radius:13px;
+  padding:22px;
+  box-shadow:0 9px 30px #070f0dcc;
+  backdrop-filter:blur(3px);
+}
+.ticket-caption {display:block;color:#ffdfa7;text-shadow:0 2px 6px #0008;}
+.hero-actions { flex-wrap:wrap; }
+.button-primary {
+  color:#fff9e8;
+  background:linear-gradient(125deg,#368960,#21683f);
+  border-color:#c2d49e;
+  box-shadow:0 4px 14px #06150e7a,0 0 15px #d8b46c38;
+}
+.button-primary:hover:not(:disabled) {
+  background:#408b60;
+  box-shadow:0 0 0 2px #f6c9825e,0 0 22px #ffd38d61;
+}
+.overview-bar { background:#143c2ce8;border-color:#6c8f69;box-shadow:0 9px 29px #06140c73; }
+.section-heading h2 { font-size:clamp(29px,3.8vw,48px); }
+.dish-card {
+  background:linear-gradient(165deg,#194330,#102c23);
+  border:1px solid #688568;
+  box-shadow:0 7px 24px #04150d75;
+}
+.dish-card:hover { border-color:#e9bb7a;box-shadow:0 0 18px #e2ad4b36; }
+.balance-card { border-color:#9aab7c; }
+.drinks-card { border-color:#d09583; }
+.signup-dialog {
+  background:linear-gradient(165deg,#103b2b,#0b261d);
+  border:1px solid #e2b97f;
+  box-shadow:0 25px 90px #000b;
+}
+.form-error { color:#ffe0cf; }
+input[type=number] { font-variant-numeric:tabular-nums; }
+.how-it-works {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  margin-top:70px;
+  padding:63px 0 27px;
+  border-top:1px solid #b29b715c;
+  background:
+    radial-gradient(circle at 6% 14%,#edb5771b,transparent 19%),
+    radial-gradient(circle at 93% 78%,#d89d6a1a,transparent 21%);
+}
+.how-it-works::before {
+  content:"";
+  position:absolute;top:-31px;right:0;left:0;height:62px;
+  pointer-events:none;
+  opacity:.72;
+  background:url('/kerst-guirlande.svg') top center / 850px auto repeat-x;
+  mask-image:linear-gradient(to bottom,black,transparent 92%);
+}
+.christmas-how-intro {
+  position:relative;
+  align-self:stretch;
+  display:block;
+  padding:0 4px 10px;
+  z-index:1;
+}
+.christmas-how-intro .eyebrow {
+  display:flex;align-items:center;gap:16px;
+  font-weight:750;font-size:13px;letter-spacing:3px;color:#eabc7a;
+}
+.christmas-how-intro .intro-sparkle {
+  font-family:var(--serif);font-size:21px;color:#ffce79;
+  filter:drop-shadow(0 0 9px #facf83);
+}
+.christmas-how-intro h2 {
+  font-family:var(--serif);
+  font-size:clamp(53px,8vw,103px);
+  line-height:1.02;
+  font-weight:400;
+  letter-spacing:-2px;
+  color:#fff2df;
+  margin:16px 0 10px;
+  text-shadow:0 3px 32px #091c14;
+}
+.christmas-how-intro h2::after {
+  content:"";
+  display:block;
+  width:220px;height:14px;
+  margin:0 0 0 23%;
+  border-bottom:3px solid #e2a85c;
+  border-radius:0 0 80% 80%;
+  transform:rotate(-3deg);
+}
+.christmas-how-intro > p {
+  font-size:15px;line-height:1.5;color:#cfdbd2;
+  margin:15px 0 4px;
+}
+.how-step,.how-step:nth-of-type(3),.how-step:nth-of-type(4) {
+  position:relative;
+  width:100%;height:auto;min-height:190px;
+  display:grid;
+  grid-template-columns:136px minmax(0,1fr) 290px;
+  gap:25px;
+  align-items:center;
+  padding:20px 24px;
+  border:1px solid #426e51;
+  border-radius:70px 19px 19px 70px;
+  background:
+    radial-gradient(ellipse at 100% 110%,#a77b4336,transparent 55%),
+    linear-gradient(145deg,#0e3024,#09251d 68%,#0d2c20);
+  box-shadow:0 12px 22px #03100b9c,inset 0 1px 0 #f6e2ac1e;
+  overflow:visible;
+}
+.how-step:nth-of-type(3) {
+  background:radial-gradient(ellipse at 95% 85%,#723d354e,transparent 50%),linear-gradient(135deg,#123729,#0b251e);
+}
+.how-step::before {
+  content:"";
+  position:absolute;
+  top:-6px;left:8%;right:5%;height:15px;
+  background:
+    radial-gradient(ellipse at 9% 80%,#eafff7 0 38%,transparent 48%),
+    radial-gradient(ellipse at 37% 40%,#effdf8 0 36%,transparent 47%),
+    radial-gradient(ellipse at 70% 45%,#fafffb 0 40%,transparent 48%),
+    radial-gradient(ellipse at 91% 60%,#f8fffb 0 40%,transparent 48%);
+  filter:blur(4px);opacity:.82;
+  pointer-events:none;
+}
+.how-step::after {
+  content:"✦";
+  position:absolute;
+  right:29%;top:12%;
+  font-size:27px;
+  color:#ffce88;
+  text-shadow:0 0 8px #f9c37e,0 0 26px #f2a448aa;
+  pointer-events:none;
+}
+.how-step .step-picture {
+  position:relative;
+  width:128px;height:128px;
+  display:flex;
+  justify-content:center;align-items:center;
+  margin:0;
+  background:linear-gradient(155deg,#193e2c,#051d16);
+  border:2px solid #e3aa63;
+  border-radius:50%;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:66px;
+  line-height:1;
+  color:#ffcd89;
+  box-shadow:0 0 0 5px #183e2c,0 0 24px #e1a35b2f,inset 0 0 25px #c08a3d21;
+  text-shadow:0 2px 15px #e7ac6f40;
+}
+.how-step .step-picture::before {
+  content:"";
+  position:absolute;
+  top:-8px;left:9px;right:10px;height:22px;
+  border-top:7px solid #f8fcf3;
+  border-radius:50%;
+  transform:rotate(-10deg);
+  filter:drop-shadow(0 2px 2px #122b20);
+}
+.how-step .step-picture::after {
+  content:"✦";
+  position:absolute;bottom:3px;right:-6px;
+  color:#eeac69;font-size:21px;
+}
+.how-step .step-copy {position:relative;z-index:2;min-width:0;}
+.how-step h3 {
+  font-size:clamp(22px,2.55vw,30px);
+  line-height:1.2;
+  margin:0 0 12px;
+  font-weight:650;
+  color:#fffbef;
+}
+.how-step p {
+  font-size:clamp(15px,1.75vw,19px);
+  line-height:1.5;
+  margin:0;
+  color:#d4dfd7;
+}
+.how-step .step-illustration {
+  position:relative;
+  width:290px;height:174px;
+  align-self:end;
+  background-repeat:no-repeat;
+  background-position:right center;
+  background-size:contain;
+  filter:drop-shadow(0 4px 9px #040b09b0);
+  z-index:1;
+  opacity:1;
+}
+.step-illustration-list {background-image:url('/kerst-stap-kijken.svg');}
+.step-illustration-food {background-image:url('/kerst-stap-hapje.svg');}
+.step-illustration-party {background-image:url('/kerst-stap-samen.svg');}
+.privacy-note {
+  font-size:13px;line-height:1.85;color:#bfd0c5;
+  max-width:850px;margin:34px auto 44px;
+}
+.site-footer {
+  border-top:1px solid #c9a57769;
+  padding-top:32px;padding-bottom:55px;
+  color:#d2d8c9;font-size:13px;
+}
+.site-footer .footer-brand {color:#f3c483;text-shadow:0 0 18px #c78c4a80;}
+@media(max-width:950px) {
+  .hero { grid-template-columns:minmax(0,1fr) 230px;padding:29px; }
+  .hero-aside {max-width:220px;}
+  .date-ticket {padding:14px;}
+  .how-step,.how-step:nth-of-type(3),.how-step:nth-of-type(4) {
+    grid-template-columns:110px minmax(0,1fr) 205px;
+    gap:15px;min-height:158px;
+  }
+  .how-step .step-picture {width:100px;height:100px;font-size:49px;}
+  .how-step .step-illustration {width:205px;height:149px;}
+}
+@media(max-width:760px) {
+  .site-header {padding-top:120px;}
+  .christmas-garland {height:130px;background-size:auto 130px;}
+  .hero {
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    min-height:0;
+    gap:22px;
+    padding:29px 23px;
+  }
+  .hero .alem-winter-photo {
+    position:relative;left:auto;top:auto;bottom:auto;
+    order:2;width:100%;height:240px;min-height:240px;
+    border:1px solid #d9ad7e9e;
+    border-radius:13px;
+    z-index:0;
+    background-position:center 39%;
+    mask-image:none;
+  }
+  .alem-winter-photo::after {
+    background:linear-gradient(0deg,#071c17b0,transparent 53%);
+  }
+  .hero-copy {order:1;align-self:stretch;max-width:none;}
+  .hero-aside {order:3;justify-self:stretch;align-self:stretch;max-width:none;}
+  .date-ticket {padding:19px 24px;}
+  .how-it-works {gap:16px;margin-top:54px;padding-top:53px;}
+  .how-step,.how-step:nth-of-type(3),.how-step:nth-of-type(4) {
+    grid-template-columns:92px minmax(0,1fr) 160px;
+    gap:14px;min-height:145px;padding:15px;
+  }
+  .how-step .step-picture {width:84px;height:84px;font-size:42px;}
+  .how-step .step-illustration {width:160px;height:130px;}
+  .how-step h3 {font-size:21px;}
+  .how-step p {font-size:14px;}
+}
+@media(max-width:520px) {
+  .site-header {padding-top:106px;}
+  .christmas-garland {height:112px;background-size:auto 112px;}
+  .hero {margin-top:10px;padding:19px;border-radius:16px;}
+  .hero h1 {font-size:clamp(42px,12vw,58px);}
+  .hero .alem-winter-photo {min-height:215px;height:215px;}
+  .date-ticket {border-radius:12px;}
+  .how-it-works {gap:17px;padding-top:48px;margin-top:48px;}
+  .how-it-works::before {background-size:auto 55px;}
+  .christmas-how-intro h2 {font-size:clamp(49px,12vw,72px);}
+  .christmas-how-intro .eyebrow {font-size:11px;letter-spacing:1.8px;}
+  .how-step,.how-step:nth-of-type(3),.how-step:nth-of-type(4) {
+    display:grid;
+    grid-template-columns:75px minmax(0,1fr);
+    grid-template-rows:auto;
+    align-items:center;
+    gap:12px;
+    padding:18px 12px;
+    min-height:142px;
+    border-radius:52px 15px 15px 52px;
+  }
+  .how-step .step-picture {width:70px;height:70px;font-size:36px;}
+  .how-step .step-copy {padding-right:5px;}
+  .how-step h3 {font-size:19px;}
+  .how-step p {font-size:13px;}
+  .how-step .step-illustration {
+    position:absolute;
+    right:-13px;bottom:-6px;
+    width:125px;height:104px;
+    opacity:.18;
+    filter:none;
+  }
+  .how-step::after {right:18px;top:10px;font-size:17px;}
+  .privacy-note {font-size:12px;line-height:1.7;margin:27px 0 40px;}
+  .site-footer {padding-bottom:37px;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .christmas-lights i,.snow-particle,.hanging-star{animation:none!important;}
+}
+@media(forced-colors:active) {
+  .how-step,.hero,.date-ticket{border:1px solid CanvasText!important;}
+}

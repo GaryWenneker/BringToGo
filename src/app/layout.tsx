@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './holiday-theme.css';
 import './christmas-experience.css';
+import './mockup-christmas.css';
 import ChristmasAtmosphere from '@/components/christmas-atmosphere';
 export const viewport: Viewport = { themeColor: '#0a1c16', colorScheme: 'dark' };
 export const metadata: Metadata = {
