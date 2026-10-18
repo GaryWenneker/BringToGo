@@ -1,12 +1,12 @@
-# BringToGo · Pré-kerst buurtborrel in Alem
+# Buurtjes tussen de Kerken · 20 december 2026
 
-Een eenvoudige Nederlandstalige hapjeslijst voor **één bijeenkomst**: zondag **20 december 2026**, vanaf **16.00 uur**, bij **Hart van Alem**.
+De website voor de **buurtjes tussen de kerken van Alem** en hun gezamenlijke pré-kerstborrel. Een eenvoudige Nederlandstalige hapjeslijst voor **één bijeenkomst**: zondag **20 december 2026**, vanaf **16.00 uur**, bij **Hart van Alem**.
 
 [![CI](https://github.com/GaryWenneker/BringToGo/actions/workflows/ci.yml/badge.svg)](https://github.com/GaryWenneker/BringToGo/actions/workflows/ci.yml)
 
-**Live:** https://bringtogo.netlify.app
+**Website:** https://bringtogo.netlify.app (de bestaande technische domeinnaam blijft behouden om uitnodigingslinks en sessies niet te verbreken).
 
-## Wat kunnen buurtbewoners doen?
+## Wat kunnen de buurtjes doen?
 
 - Bekijk wat er al op tafel komt en voeg zonder account je eigen hapje toe.
 - Gebruik alleen je naam en een gerecht. Categorie, aantal porties, dieetlabels en opmerkingen zijn optioneel beschikbaar.
