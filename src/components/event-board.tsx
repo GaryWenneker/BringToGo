@@ -60,7 +60,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   }
   function patch<K extends keyof ContributionInput>(key:K,value:ContributionInput[K]){setForm(f=>({...f,[key]:value}));}
   async function share() {
-    const url=`${window.location.origin}/e/${eventId}`;
+    const url=`${window.location.origin}/`;
     try { if(navigator.share) await navigator.share({title:event?.title,text:'Wat neem jij mee? Kies je hapje op BringToGo.',url});else {await navigator.clipboard.writeText(url);setToast('Uitnodigingslink gekopieerd. Plak hem in de buurtapp!');} }catch(e){if((e as Error).name!=='AbortError')setToast(`Deel deze link: ${url}`);}
   }
   async function saveAccess() {
@@ -77,7 +77,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   }
   if(manage&&state)return <EventEditor initial={state.event} onSaved={()=>{setManage(false);void refresh();}} onCancel={()=>setManage(false)}/>;
   return <><Header/><main className="page-shell">
-    <div className="breadcrumb"><Link href="/">Samen iets lekkers</Link><span>/</span><span>{event?.location||'Jouw bijeenkomst'}</span></div>
+    <div className="breadcrumb"><span>Buurtborrel in Alem</span><span>/</span><span>{event?.location||'Hart van Alem'}</span></div>
     <section className="hero" aria-labelledby="event-title">
       <div className="hero-copy"><div className="eyebrow"><span/> EEN HAPJE MEENEMEN</div><h1 id="event-title">{event?.title||'Even de tafel dekken…'}</h1><p className="hero-intro">Neem iets lekkers mee.</p><p className="hero-text">{event?.description||'De uitnodiging wordt opgehaald.'}</p>
         <div className="hero-actions"><button className="button button-primary" onClick={()=>openForm()} disabled={!state||state.event.closed}><Plus size={19}/> {state?.event.closed?'Aanmelden gesloten':'Ik neem iets mee'}</button><span className="no-account"><Check size={15}/> Alleen je naam en je hapje</span></div>
