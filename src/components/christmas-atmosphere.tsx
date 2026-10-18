@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
 
 // Fixed positions avoid hydration differences and keep snowfall extremely lightweight.
-const flakes = Array.from({ length: 38 }, (_, index) => {
+const flakes = Array.from({ length: 58 }, (_, index) => {
   const left = (index * 37 + 11) % 100;
-  const size = 2 + ((index * 7) % 6);
+  const size = 2 + ((index * 7) % 8);
   const drift = ((index * 17) % 90) - 45;
   return {
     left: `${left}%`,
