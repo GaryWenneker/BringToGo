@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+<defs><radialGradient id="g"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".9" stop-color="#edfaff" stop-opacity=".72"/></radialGradient></defs>
+<g transform="translate(32 32)" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<g transform="rotate(0)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g><g transform="rotate(60)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g><g transform="rotate(120)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g><g transform="rotate(180)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g><g transform="rotate(240)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g><g transform="rotate(300)"><path d="M0 0V-27" stroke-width="2.8"/><path d="M0-19l-6-6M0-19l6-6M0-12l-5-5M0-12l5-5" stroke-width="2"/></g>
+<circle r="3.2" fill="#fff" stroke="none"/>
+</g></svg>

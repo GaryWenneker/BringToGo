@@ -405,3 +405,122 @@ input[type=number] { font-variant-numeric:tabular-nums; }
 @media(forced-colors:active) {
   .how-step,.hero,.date-ticket{border:1px solid CanvasText!important;}
 }
+
+
+/* Actually visible, gently drifting, layered snow across the *entire* page. */
+.falling-snow { position:absolute;inset:0;overflow:hidden;z-index:11;pointer-events:none; }
+.snow-particle {
+  position:absolute;top:-7vh;display:block;border:0;
+  margin:0;padding:0;
+  box-shadow:none;
+  will-change:transform;
+  animation:winter-snow-fall linear infinite;
+}
+.snow-small {
+  border-radius:50%;
+  background:radial-gradient(circle,#fcffff 0 38%,#eefaffbd 57%,transparent 83%);
+  filter:drop-shadow(0 0 2px #e6faff85);
+}
+.snow-soft {
+  border-radius:50%;
+  background:radial-gradient(circle,#ffffffd9 0 14%,#f4fcff82 42%,transparent 73%);
+  filter:blur(1.8px);
+}
+.snow-crystal {
+  border-radius:0;
+  background:transparent url('/kerst-sneeuwvlok.svg') center / contain no-repeat;
+  filter:drop-shadow(0 0 3px #fff7) drop-shadow(0 0 5px #d4e9ef40);
+}
+@keyframes winter-snow-fall {
+  0% {transform:translate3d(0,-9vh,0) rotate(0deg);}
+  45% {transform:translate3d(var(--sway),48vh,0) rotate(12deg);}
+  100% {transform:translate3d(var(--drift),114vh,0) rotate(var(--spin));}
+}
+/* Snow is accumulating on real section boundaries, instead of only showing dots. */
+.hero::after {
+  content:"";position:absolute;bottom:-2px;left:0;right:0;height:14px;
+  z-index:5;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60px 11px at 5% 95%,#f3f8f4f2 29%,transparent 77%),
+    radial-gradient(ellipse 90px 16px at 21% 100%,#e7f4f1de 32%,transparent 82%),
+    radial-gradient(ellipse 75px 14px at 49% 105%,#f5f9f8ec 28%,transparent 81%),
+    radial-gradient(ellipse 112px 18px at 70% 110%,#e8f2eed9 30%,transparent 83%),
+    radial-gradient(ellipse 75px 16px at 96% 110%,#fafcffed 28%,transparent 80%);
+  filter:drop-shadow(0 -1px 3px #eaffff99);
+}
+.how-it-works {
+  padding-bottom:38px;
+}
+.christmas-how-intro {
+  min-height:320px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:36px clamp(24px,5vw,60px) 39px;
+  border:1px solid #d5b57a78;
+  border-radius:17px;
+  box-shadow:inset 0 0 0 1px #fff7dc14,0 16px 35px #0007;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,#061f19f5 0%,#09261df0 25%,#0a2415ab 49%,#091c1448 74%,#061d16ac 100%),
+    url('/alem-kerk-sneeuw.webp') center 31%/cover no-repeat;
+}
+.christmas-how-intro .eyebrow,.christmas-how-intro h2,.christmas-how-intro p{position:relative;z-index:1;}
+.christmas-how-intro h2 {max-width:670px;font-size:clamp(50px,7.7vw,97px);color:#fffaf0;}
+.christmas-how-intro p {max-width:480px;color:#f0e8d8;}
+.christmas-how-intro::after {
+  content:"";position:absolute;bottom:0;left:0;right:0;height:26px;
+  background:
+    radial-gradient(ellipse 120px 25px at 2% 95%,#e4f0ed 30%,transparent 75%),
+    radial-gradient(ellipse 150px 28px at 25% 105%,#f5f9f7e8 31%,transparent 80%),
+    radial-gradient(ellipse 150px 27px at 48% 105%,#e6f3f0dd 32%,transparent 80%),
+    radial-gradient(ellipse 170px 26px at 74% 105%,#f5faffed 30%,transparent 80%),
+    radial-gradient(ellipse 120px 23px at 95% 96%,#eff8f3e4 31%,transparent 80%);
+  z-index:1;pointer-events:none;
+}
+.how-step,.how-step:nth-of-type(3),.how-step:nth-of-type(4) {
+  border-color:#648365;
+  background:
+    radial-gradient(ellipse at 95% 0%,#b17a3335,transparent 42%),
+    linear-gradient(110deg,#102c22,#071f1a);
+}
+.how-step::before {
+  top:-10px;height:24px;left:0;right:0;
+  border-radius:30px 30px 0 0;
+  background:
+    radial-gradient(ellipse 96px 21px at 8% 86%,#e8f5f3 28%,transparent 79%),
+    radial-gradient(ellipse 107px 24px at 32% 97%,#fafffd 33%,transparent 81%),
+    radial-gradient(ellipse 127px 21px at 59% 87%,#e4f1ef 27%,transparent 76%),
+    radial-gradient(ellipse 105px 22px at 87% 98%,#f7fffc 31%,transparent 82%);
+  filter:blur(1.9px) drop-shadow(0 3px 3px #d6f4f460);
+  opacity:.94;
+}
+.how-step .step-picture {box-shadow:0 0 0 5px #214532,0 0 32px #e7ad5f7b,inset 0 0 28px #c08a3d38;}
+.how-step:nth-of-type(3) {background:radial-gradient(ellipse at 95% 0%,#85412f48,transparent 47%),linear-gradient(110deg,#153728,#0a251c);}
+.how-step:nth-of-type(4) {background:radial-gradient(ellipse at 95% 0%,#9f7a3942,transparent 47%),linear-gradient(110deg,#133023,#09241b);}
+.site-footer {position:relative;}
+.site-footer::before {
+  content:"";
+  position:absolute;
+  left:0;right:0;top:-9px;height:16px;
+  background:
+    radial-gradient(ellipse 80px 15px at 8% 80%,#d8e9e7df 22%,transparent 78%),
+    radial-gradient(ellipse 130px 14px at 37% 89%,#f0f9f7ef 26%,transparent 78%),
+    radial-gradient(ellipse 90px 15px at 71% 91%,#e5f5f2dd 25%,transparent 80%),
+    radial-gradient(ellipse 60px 15px at 95% 90%,#f5faf9fa 22%,transparent 78%);
+  pointer-events:none;
+}
+@media(max-width:760px) {
+  .christmas-how-intro {min-height:290px;padding:35px 24px;}
+  .christmas-how-intro h2 {font-size:clamp(47px,10.3vw,76px);}
+}
+@media(max-width:520px) {
+  .christmas-how-intro {min-height:250px;background-position:center,62% 36%;padding:28px 18px;}
+  .christmas-how-intro h2 {font-size:clamp(44px,11.2vw,60px);}
+  .christmas-how-intro p {font-size:13px;max-width:260px;}
+  .how-step .step-illustration {opacity:.28;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .snow-particle {animation:none!important;top:var(--rest-top);opacity:.34!important;will-change:auto;}
+  .snow-crystal {opacity:.5!important;}
+}
