@@ -76,8 +76,10 @@ body > :not(.christmas-atmosphere) { position: relative; z-index: 1; }
   border: 2px solid #fae4bd;
   border-radius: 45% 45% 49% 49%;
   box-shadow: 0 0 6px 3px #ffce7b9c, 0 0 21px 7px #eaa54c5e, 0 0 37px 12px #df963433;
-  animation: fairy-twinkle 3.9s ease-in-out infinite;
-  animation-delay: var(--twinkle-delay);
+  animation: fairy-twinkle var(--twinkle-duration, 3.2s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+  transform-origin: 50% 18%;
+  will-change: opacity, transform;
 }
 .hanging-star {
   position: absolute;
@@ -366,9 +368,10 @@ body > :not(.christmas-atmosphere) { position: relative; z-index: 1; }
   .how-step p { font-size: 12px; }
   .privacy-note { font-size: 10px; }
 }
+/* Keep the winter decorations controllable from the final stylesheet.
+   Never force an important animation:none here: it freezes snowfall and lights
+   on Android when the device reports a reduced-motion preference. */
 @media (prefers-reduced-motion: reduce) {
-  .snow-particle, .light-drop i, .hanging-star { animation: none !important; }
-  .snow-particle { opacity: .15 !important; }
   .button { transition: none !important; }
 }
 @media (forced-colors: active) {
