@@ -433,7 +433,7 @@ input[type=number] { font-variant-numeric:tabular-nums; }
 }
 @keyframes winter-snow-fall {
   0% {transform:translate3d(0,-9vh,0) rotate(0deg);}
-  45% {transform:translate3d(var(--sway),48vh,0) rotate(calc(var(--spin) * .4));}
+  45% {transform:translate3d(var(--sway),48vh,0) rotate(12deg);}
   100% {transform:translate3d(var(--drift),114vh,0) rotate(var(--spin));}
 }
 /* Snow is accumulating on real section boundaries, instead of only showing dots. */
