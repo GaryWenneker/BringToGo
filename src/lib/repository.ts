@@ -22,8 +22,8 @@ export class Repository {
     const values = [owner, eventId, data.name, data.attendees, data.dietaryNeeds, data.dish, normalizeDish(data.dish), data.category, data.portions, JSON.stringify(data.diets), data.notes];
     try {
       // Lock the event for this statement so closing it and signing up serialize.
-      const { rows } = id ? await this.db.query(`WITH open_event AS (SELECT id FROM events WHERE id=$2 AND (NOT closed OR owner_hash=$1) FOR SHARE), participant AS (
-        UPDATE parties SET name=$3, attendees=$4, dietary_needs=$5 WHERE (owner_hash=$1 OR EXISTS (SELECT 1 FROM events WHERE id=$2 AND owner_hash=$1)) AND event_id=(SELECT id FROM open_event)
+      const { rows } = id ? await this.db.query(`WITH open_event AS (SELECT id FROM events WHERE id=$2 AND NOT closed FOR SHARE), participant AS (
+        UPDATE parties SET name=$3, attendees=$4, dietary_needs=$5 WHERE owner_hash=$1 AND event_id=(SELECT id FROM open_event)
         AND EXISTS (SELECT 1 FROM contributions WHERE id=$12 AND party_id=parties.id) RETURNING id)
         UPDATE contributions SET dish=$6, dish_key=$7, category=$8, portions=$9, diets=$10::jsonb, notes=$11
         WHERE id=$12 AND party_id=(SELECT id FROM participant) RETURNING id`, [...values, id]) :
@@ -41,7 +41,7 @@ export class Repository {
     }
   }
   async remove(eventId: string, owner: string, id: string) {
-    const { rows } = await this.db.query(`DELETE FROM contributions c USING parties p WHERE c.id=$1 AND c.event_id=$2 AND c.party_id=p.id AND (p.owner_hash=$3 OR EXISTS (SELECT 1 FROM events WHERE id=$2 AND owner_hash=$3)) RETURNING c.id`, [id, eventId, owner]);
+    const { rows } = await this.db.query(`DELETE FROM contributions c USING parties p WHERE c.id=$1 AND c.event_id=$2 AND c.party_id=p.id AND p.owner_hash=$3 RETURNING c.id`, [id, eventId, owner]);
     if (!rows.length) throw new AppError('Je kunt alleen je eigen bijdrage verwijderen.', 403);
   }
   async create(owner: string, data: EventInput) {
