@@ -6,16 +6,28 @@ import { categories, dietLabels, defaultEvent, normalizeDish, similarDishes, csv
 import { Header, Footer, api, download } from './shared';
 import EventEditor from './event-editor';
 import { readRememberedDetails, writeRememberedDetails } from '@/lib/participant-details';
+import { resolveNumberDraft, type NumberDraft } from '@/lib/number-draft';
 
 function localProfileStorage(): Storage | undefined {
   try { return typeof window === 'undefined' ? undefined : window.localStorage; }
   catch { return undefined; }
 }
-const emptyForm: ContributionInput = { name:'', dish:'', category:'hartig', portions:12, attendees:1, diets:[], notes:'', dietaryNeeds:'' };
+type ContributionDraft = Omit<ContributionInput, 'portions' | 'attendees'> & {
+  portions: NumberDraft;
+  attendees: NumberDraft;
+};
+const emptyForm: ContributionDraft = { name:'', dish:'', category:'hartig', portions:12, attendees:1, diets:[], notes:'', dietaryNeeds:'' };
+function forStorage(draft: ContributionDraft): ContributionInput | null {
+  try {
+    return {...draft,
+      portions: resolveNumberDraft(draft.portions, 1, 500, 'Het aantal hapjes'),
+      attendees: resolveNumberDraft(draft.attendees, 1, 30, 'Het aantal personen')};
+  } catch { return null; }
+}
 export default function EventBoard({eventId}:{eventId:string}) {
   const [state,setState]=useState<EventState|null>(null), [error,setError]=useState(''), [loading,setLoading]=useState(true);
   const [filter,setFilter]=useState('alles'), [query,setQuery]=useState(''), [dietOnly,setDietOnly]=useState(false);
-  const [form,setForm]=useState<ContributionInput>(emptyForm), [editing,setEditing]=useState<Contribution|null>(null), [busy,setBusy]=useState(false), [formError,setFormError]=useState('');
+  const [form,setForm]=useState<ContributionDraft>(emptyForm), [editing,setEditing]=useState<Contribution|null>(null), [busy,setBusy]=useState(false), [formError,setFormError]=useState('');
   const [toast,setToast]=useState(''), [manage,setManage]=useState(false), [deleteMode,setDeleteMode]=useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const base=`/api/events/${encodeURIComponent(eventId)}`;
@@ -31,7 +43,8 @@ export default function EventBoard({eventId}:{eventId:string}) {
   const visible=items.filter(c=>(filter==='alles'||filter==='mijn'&&c.mine||filter===c.category) && (!dietOnly||c.diets.includes('Vegetarisch')||c.diets.includes('Vegan')) && `${c.dish} ${c.name} ${c.notes}`.toLowerCase().includes(query.toLowerCase()));
   // Housekeeping details are saved while typing, including if a request fails.
   useEffect(() => {
-    if (dialog.current?.open) writeRememberedDetails(localProfileStorage(), form);
+    const personal = forStorage(form);
+    if (dialog.current?.open && personal) writeRememberedDetails(localProfileStorage(), personal);
   }, [form.name, form.attendees, form.dietaryNeeds, form.portions]);
   const matching=similarDishes(form.dish,items,editing?.id);
   const duplicate=matching.some(c=>normalizeDish(c.dish)===normalizeDish(form.dish));
@@ -52,14 +65,22 @@ export default function EventBoard({eventId}:{eventId:string}) {
   }
   async function save(e:FormEvent) {
     e.preventDefault(); if(busy)return;setBusy(true);setFormError('');
-    try {await api(`${base}/contributions${editing?`/${editing.id}`:''}`,editing?'PATCH':'POST',form);writeRememberedDetails(localProfileStorage(),form);dialog.current?.close();setToast(editing?'Je bijdrage is bijgewerkt.':'Gezellig! Jouw hapje staat op de lijst.');await refresh();}
+    try {
+      const validated = {
+        ...form,
+        portions: resolveNumberDraft(form.portions, 1, 500, 'Het aantal hapjes'),
+        attendees: resolveNumberDraft(form.attendees, 1, 30, 'Het aantal personen'),
+      };
+      await api(`${base}/contributions${editing?`/${editing.id}`:''}`,editing?'PATCH':'POST',validated);
+      writeRememberedDetails(localProfileStorage(),validated);
+      dialog.current?.close();setToast(editing?'Je bijdrage is bijgewerkt.':'Gezellig! Jouw hapje staat op de lijst.');await refresh();}
     catch(e){setFormError((e as Error).message);await refresh();}finally{setBusy(false);}
   }
   async function remove() {
     if(!editing||busy)return;setBusy(true);setFormError('');
     try{await api(`${base}/contributions/${editing.id}`,'DELETE',{});dialog.current?.close();setToast('Je bijdrage is verwijderd.');await refresh();}catch(e){setFormError((e as Error).message);}finally{setBusy(false);}
   }
-  function patch<K extends keyof ContributionInput>(key:K,value:ContributionInput[K]){setForm(f=>({...f,[key]:value}));}
+  function patch<K extends keyof ContributionDraft>(key:K,value:ContributionDraft[K]){setForm(f=>({...f,[key]:value}));}
   async function share() {
     const url=`${window.location.origin}/`;
     try { if(navigator.share) await navigator.share({title:event?.title,text:'Buurtjes tussen de Kerken · 20 december in Alem. Bekijk de hapjeslijst en zet jouw schaaltje erbij.',url});else {await navigator.clipboard.writeText(url);setToast('Uitnodigingslink gekopieerd. Plak hem in de buurtapp!');} }catch(e){if((e as Error).name!=='AbortError')setToast(`Deel deze link: ${url}`);}
@@ -109,7 +130,7 @@ export default function EventBoard({eventId}:{eventId:string}) {
   </main><Footer/>
   <dialog ref={dialog} className="signup-dialog" onCancel={e=>{if(busy)e.preventDefault();}} onClick={e=>{if(e.target===dialog.current&&!busy)dialog.current.close();}} aria-labelledby="signup-title"><div className="dialog-content"><button className="dialog-close icon-button" onClick={()=>dialog.current?.close()} disabled={busy} aria-label="Sluiten"><X size={20}/></button><div className="eyebrow muted">SCHUIF AAN</div><h2 id="signup-title">{editing?'Even aanpassen':'Wat neem jij mee?'}</h2><p className="dialog-intro">Vul je naam en je hapje in. Meer hoeft niet.</p><form onSubmit={save}><label>Je naam of huishouden<input required maxLength={60} autoComplete="name" autoFocus placeholder="Bijvoorbeeld: Gary & Nathalie" value={form.name} onChange={e=>patch('name',e.target.value)}/></label><label>Ik neem mee<input required minLength={2} maxLength={100} placeholder="Bijvoorbeeld: zelfgemaakte mini-quiches" value={form.dish} onChange={e=>patch('dish',e.target.value)}/></label>
     {matching.length>0&&<div className={`duplicate-note ${duplicate?'exact':''}`} role="status"><Info size={17}/><span>{duplicate?'Dit gerecht staat al op de lijst. Kies iets anders.':`Lijkt op: ${matching.map(c=>`${c.dish} (${c.name})`).join(', ')}. Maak er iets anders van voor meer variatie.`}</span></div>}
-    <details className="extra-details"><summary>Extra details <span>categorie, aantallen & dieetwensen</span><Plus size={16}/></summary><div className="extra-fields"><label>Categorie<select value={form.category} onChange={e=>patch('category',e.target.value as Category)}>{categories.map(c=><option key={c.id} value={c.id}>{c.emoji} {c.label}</option>)}</select></label><div className="form-row"><label>Aantal hapjes / stuks<input type="number" min={1} max={500} required value={form.portions} onChange={e=>patch('portions',Number(e.target.value))}/></label><label>Wij komen met<input type="number" min={1} max={30} required value={form.attendees} onChange={e=>patch('attendees',Number(e.target.value))}/></label></div><p className="field-help">Standaard: 12 hapjes en 1 persoon. Personen tellen één keer per huishouden, ook bij meerdere gerechten.</p><fieldset><legend>Dit gerecht is</legend><div className="checkbox-group">{dietLabels.map(d=><label key={d}><input type="checkbox" checked={form.diets.includes(d)} onChange={e=>patch('diets',e.target.checked?[...form.diets,d]:form.diets.filter(v=>v!==d))}/>{d}</label>)}</div></fieldset><label>Opmerking over het gerecht<input maxLength={500} placeholder="Bijvoorbeeld: bevat noten, wordt koud geserveerd" value={form.notes} onChange={e=>patch('notes',e.target.value)}/></label><label>Dieetwensen van jouw huishouden<input maxLength={300} placeholder="Optioneel, zichtbaar voor de andere buurtjes" value={form.dietaryNeeds} onChange={e=>patch('dietaryNeeds',e.target.value)}/></label></div></details>
+    <details className="extra-details"><summary>Extra details <span>categorie, aantallen & dieetwensen</span><Plus size={16}/></summary><div className="extra-fields"><label>Categorie<select value={form.category} onChange={e=>patch('category',e.target.value as Category)}>{categories.map(c=><option key={c.id} value={c.id}>{c.emoji} {c.label}</option>)}</select></label><div className="form-row"><label>Aantal hapjes / stuks<input type="number" min={1} max={500} required value={form.portions} onChange={e=>patch('portions',e.target.value)}/></label><label>Wij komen met<input type="number" min={1} max={30} required value={form.attendees} onChange={e=>patch('attendees',e.target.value)}/></label></div><p className="field-help">Standaard: 12 hapjes en 1 persoon. Personen tellen één keer per huishouden, ook bij meerdere gerechten.</p><fieldset><legend>Dit gerecht is</legend><div className="checkbox-group">{dietLabels.map(d=><label key={d}><input type="checkbox" checked={form.diets.includes(d)} onChange={e=>patch('diets',e.target.checked?[...form.diets,d]:form.diets.filter(v=>v!==d))}/>{d}</label>)}</div></fieldset><label>Opmerking over het gerecht<input maxLength={500} placeholder="Bijvoorbeeld: bevat noten, wordt koud geserveerd" value={form.notes} onChange={e=>patch('notes',e.target.value)}/></label><label>Dieetwensen van jouw huishouden<input maxLength={300} placeholder="Optioneel, zichtbaar voor de andere buurtjes" value={form.dietaryNeeds} onChange={e=>patch('dietaryNeeds',e.target.value)}/></label></div></details>
     {formError&&<p className="form-error" role="alert">{formError}</p>}<button type="submit" className="button button-primary submit-button" disabled={busy||duplicate}>{busy?'Even opslaan…':editing?'Wijziging opslaan':'Ik neem dit mee'}<Check size={18}/></button><p className="form-footnote">Standaard 12 hapjes en 1 persoon. Pas dit aan bij Extra details.</p><p className="form-footnote">Je naam en huishoudelijke gegevens worden op dit apparaat onthouden. Alleen jouw eigen hapjes kun je later aanpassen of verwijderen.</p>{editing&&(deleteMode?<div className="delete-confirm"><span>Je bijdrage echt verwijderen?</span><button type="button" onClick={remove} disabled={busy}>Ja, verwijderen</button><button type="button" onClick={()=>setDeleteMode(false)}>Annuleren</button></div>:<button type="button" className="delete-link" onClick={()=>setDeleteMode(true)}>Mijn bijdrage verwijderen</button>)}</form></div></dialog>
   {toast&&<div className="toast" role="status"><CheckCircle2 size={19}/>{toast}<button onClick={()=>setToast('')} aria-label="Melding sluiten"><X size={16}/></button></div>}
   </>;
