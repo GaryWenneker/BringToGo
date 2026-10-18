@@ -375,3 +375,6 @@ body > :not(.christmas-atmosphere) { position: relative; z-index: 1; }
   .hero, .alem-winter-photo, .how-step, .date-ticket { border: 1px solid CanvasText; }
   .light-drop i, .snow-particle { display: none; }
 }
+/* Personal contributions are subtly distinguished; only their owners get the edit button. */
+.dish-card.own-dish { border-color: #d6bc86; }
+.dish-card.own-dish .dish-bottom strong small { color: #f2d39b; font-weight: 600; }
