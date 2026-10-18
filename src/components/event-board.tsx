@@ -121,10 +121,10 @@ export default function EventBoard({eventId}:{eventId:string}) {
       {event?.isOrganizer&&<button className="button button-outline manage-button" onClick={()=>setManage(true)}><Pencil size={15}/> Bijeenkomst beheren</button>}
     </aside></div>
     <section className="how-it-works" id="zo-werkt-het">
-      <div className="christmas-how-intro"><span className="eyebrow muted">GEZELLIG SAMEN IN ALEM</span><h2>Straks staat de tafel vol.</h2><p>Iedereen iets kleins mee, niemand hetzelfde. Zo houden we het leuk.</p></div>
-      <div className="how-step"><span className="step-picture" aria-hidden="true">📝</span><div><h3>Kijk wat er al is</h3><p>De hapjes van je buren staan op één lijst.</p></div></div>
-      <div className="how-step"><span className="step-picture" aria-hidden="true">🥘</span><div><h3>Jouw hapje erbij</h3><p>Vul je naam en je gerecht in. Dat is alles.</p></div></div>
-      <div className="how-step"><span className="step-picture" aria-hidden="true">🥂</span><div><h3>Tot bij de buurtborrel!</h3><p>Neem op 20 december je schaaltje mee naar Hart van Alem.</p></div></div>
+      <div className="christmas-how-intro"><span className="eyebrow muted">ZO SIMPEL IS HET <span className="intro-sparkle" aria-hidden="true">✦</span></span><h2>Zo werkt het.</h2><p>Samen een gezellige tafel maken, zonder dubbel werk.</p></div>
+      <div className="how-step"><span className="step-picture" aria-hidden="true">01</span><div className="step-copy"><h3>Kijk even rond</h3><p>Bekijk wat je buren al meenemen.</p></div><span className="step-illustration step-illustration-list" aria-hidden="true"/></div>
+      <div className="how-step"><span className="step-picture" aria-hidden="true">02</span><div className="step-copy"><h3>Kies jouw hapje</h3><p>Vul je naam en je gerecht in. Klaar.</p></div><span className="step-illustration step-illustration-food" aria-hidden="true"/></div>
+      <div className="how-step"><span className="step-picture" aria-hidden="true">03</span><div className="step-copy"><h3>Schuif gezellig aan</h3><p>Neem je schaaltje en je goede zin mee.</p></div><span className="step-illustration step-illustration-party" aria-hidden="true"/></div>
     </section>
     <p className="privacy-note">Iedereen met de uitnodigingslink kan de namen en bijdragen zien. Alleen jij kunt jouw hapjes aanpassen of verwijderen, op dit apparaat of via je persoonlijke link. Dieetlabels worden door de kok ingevuld; bespreek allergieën rechtstreeks.</p>
   </main><Footer/>
