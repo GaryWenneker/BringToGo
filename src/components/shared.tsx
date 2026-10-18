@@ -1,8 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { ShoppingBasket, ArrowUpRight, Heart, UserRound } from 'lucide-react';
+import { ShoppingBasket, Heart, UserRound } from 'lucide-react';
 export function Header() {
-  return <header className="site-header"><Link href="/" className="brand" aria-label="BringToGo startpagina"><span className="brand-mark"><ShoppingBasket size={25}/></span>Bring<span>ToGo</span><span className="brand-dot">.</span></Link><nav aria-label="Hoofdnavigatie"><a href="/#zo-werkt-het" className="how-link">Hoe werkt het?</a><Link href="/mijn" className="my-overview-link" aria-label="Mijn bijeenkomsten"><UserRound size={16}/><span>Mijn overzicht</span></Link><Link href="/nieuw" className="button button-outline">Nieuwe bijeenkomst <ArrowUpRight size={16}/></Link></nav></header>;
+  return <header className="site-header"><Link href="/" className="brand" aria-label="BringToGo startpagina"><span className="brand-mark"><ShoppingBasket size={25}/></span>Bring<span>ToGo</span><span className="brand-dot">.</span></Link><nav aria-label="Hoofdnavigatie"><a href="/#zo-werkt-het" className="how-link">Hoe werkt het?</a><Link href="/mijn" className="my-overview-link" aria-label="Mijn hapjes en persoonlijke toegang"><UserRound size={16}/><span>Mijn hapjes</span></Link></nav></header>;
 }
 export function Footer() { return <footer className="site-footer"><span className="footer-brand">BringToGo.</span><span>Spreek af wie wat meeneemt.</span><Heart size={16}/></footer>; }
 export async function api(url:string, method='GET', data?:unknown) {
