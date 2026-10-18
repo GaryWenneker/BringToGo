@@ -378,3 +378,49 @@ body > :not(.christmas-atmosphere) { position: relative; z-index: 1; }
 /* Personal contributions are subtly distinguished; only their owners get the edit button. */
 .dish-card.own-dish { border-color: #d6bc86; }
 .dish-card.own-dish .dish-bottom strong small { color: #f2d39b; font-weight: 600; }
+
+/* The event-specific identity, designed as an invitation rather than an app logo. */
+.site-header .brand {
+  min-width: 0;
+  gap: 10px;
+  letter-spacing: normal;
+  text-decoration: none;
+}
+.site-header .brand-mark { margin: 0; }
+.site-header .brand-label {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 3px;
+  line-height: 1.15;
+  font-weight: 400;
+}
+.site-header .brand-main {
+  color: #fff2dc;
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.3vw, 29px);
+  font-weight: 400;
+  letter-spacing: -.45px;
+}
+.site-header .brand-sub {
+  color: #eac990;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+.site-footer .footer-brand { color: #f4d09b; font-size: clamp(16px, 2vw, 21px); }
+@media(max-width:760px) {
+  .site-header .brand { gap: 7px; }
+  .site-header .brand-main { font-size: clamp(17px, 4vw, 22px); }
+  .site-header .brand-sub { font-size: 9px; letter-spacing: 1px; }
+  .site-header nav { flex-shrink: 0; }
+}
+@media(max-width:420px) {
+  .site-header .brand-main { font-size: clamp(15px, 4.1vw, 18px); }
+  .site-header .brand-mark svg { width: 20px; }
+  .site-header .brand-sub { font-size: 8px; letter-spacing: .6px; }
+  .site-header .brand { gap: 4px; }
+  .site-header .my-overview-link { padding: 7px; }
+}
