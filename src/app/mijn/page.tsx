@@ -1,19 +1,54 @@
 'use client';
-import { useEffect,useState,type FormEvent } from 'react';
+
+import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
-import { ArrowRight,CalendarDays,Link2,MapPin,Plus,Users } from 'lucide-react';
-import { Header,Footer,api } from '@/components/shared';
-type EventSummary={id:string;title:string;location:string;startsAt:string;closed:boolean;isOrganizer:boolean};
-export default function MyEvents() {
-  const [events,setEvents]=useState<EventSummary[]>([]),[loading,setLoading]=useState(true),[error,setError]=useState(''),[link,setLink]=useState('');
-  useEffect(()=>{void api('/api/me').then(data=>setEvents(data.events)).catch(e=>setError((e as Error).message)).finally(()=>setLoading(false));},[]);
-  function restore(e:FormEvent) {
-    e.preventDefault();
+import { ArrowRight, Link2 } from 'lucide-react';
+import { Header, Footer } from '@/components/shared';
+
+export default function MyDishes() {
+  const [personalLink, setPersonalLink] = useState('');
+  const [error, setError] = useState('');
+
+  function restoreAccess(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     try {
-      const url=new URL(link);
-      if(url.origin!==window.location.origin||url.pathname!=='/toegang'||!new URLSearchParams(url.hash.slice(1)).get('token'))throw new Error('Plak je volledige persoonlijke BringToGo-link.');
+      const url = new URL(personalLink.trim());
+      if (url.origin !== window.location.origin || url.pathname !== '/toegang') {
+        throw new Error('Gebruik je persoonlijke link van deze buurtborrel.');
+      }
+      const params = new URLSearchParams(url.hash.slice(1));
+      if (!/^[a-f0-9]{64}$/.test(params.get('token') || '') || params.get('event') !== 'buurtborrel-alem-2026') {
+        throw new Error('Deze persoonlijke link is niet geldig voor de buurtborrel.');
+      }
       window.location.assign(url.href);
-    }catch(e){setError((e as Error).message);}
+    } catch (e) {
+      setError((e as Error).message);
+    }
   }
-  return <><Header/><main className="my-events-shell"><div className="eyebrow">JOUW PLEK AAN TAFEL</div><h1>Welkom terug.</h1><p className="my-intro">Je bijeenkomsten en hapjes, op één plek. Dit apparaat herkent je vanzelf.</p>{error&&<p role="alert" className="form-error">{error}</p>}{loading?<p role="status">Je bijeenkomsten ophalen…</p>:events.length?<div className="my-events-list">{events.map(e=><Link className="my-event-card" key={e.id} href={`/e/${e.id}`}><div><span className="my-event-label">{e.isOrganizer?'Jij organiseert':'Jij schuift aan'}{e.closed?' · Aanmelden gesloten':''}</span><h2>{e.title}</h2><p><CalendarDays size={14}/>{new Intl.DateTimeFormat('nl-NL',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Amsterdam'}).format(new Date(e.startsAt))}<MapPin size={14}/>{e.location}</p></div><ArrowRight size={21}/></Link>)}</div>:<div className="empty-state"><Users size={33}/><h3>Jouw tafel wacht nog.</h3><p>Open een uitnodiging en voeg je hapje toe. Of organiseer zelf iets gezelligs.</p><Link href="/nieuw" className="button button-primary"><Plus size={16}/> Nieuwe bijeenkomst</Link></div>}<section className="restore-card"><Link2 size={21}/><div><h2>Op een ander apparaat aangemeld?</h2><p>Open je bewaarde persoonlijke link, of plak hem hieronder. Daarmee kom je direct terug bij je eigen bijdragen.</p><form onSubmit={restore}><label className="sr-only" htmlFor="personal-link">Je persoonlijke toegangskoppeling</label><input id="personal-link" required type="url" placeholder="Plak je persoonlijke BringToGo-link" autoComplete="off" value={link} onChange={e=>setLink(e.target.value)}/><button className="button button-primary" type="submit">Open mijn overzicht <ArrowRight size={16}/></button></form></div></section></main><Footer/></>;
+
+  return <>
+    <Header />
+    <main className="my-events-shell">
+      <div className="eyebrow">BUURTBORREL IN ALEM</div>
+      <h1>Mijn hapjes.</h1>
+      <p className="my-intro">Bekijk de hapjes die je meeneemt op de gezamenlijke lijst. Kies daar <strong>Mijn hapjes</strong> om alleen jouw bijdragen te zien, aan te passen of te verwijderen.</p>
+      <Link href="/#mijn-hapjes" className="button button-primary">
+        Naar mijn hapjes <ArrowRight size={17}/>
+      </Link>
+      <section className="restore-card">
+        <Link2 size={21}/>
+        <div>
+          <h2>Gebruik je een ander apparaat?</h2>
+          <p>Plak je persoonlijke toegangskoppeling hieronder. Zo kun je je eigen hapjes ook op dit apparaat terugvinden.</p>
+          <form onSubmit={restoreAccess}>
+            <label className="sr-only" htmlFor="personal-link">Persoonlijke toegangskoppeling</label>
+            <input id="personal-link" required type="url" autoComplete="off" placeholder="Plak je persoonlijke link" value={personalLink} onChange={e=>setPersonalLink(e.target.value)}/>
+            <button className="button button-primary" type="submit">Herstel mijn toegang</button>
+          </form>
+          {error && <p role="alert" className="form-error">{error}</p>}
+        </div>
+      </section>
+    </main>
+    <Footer/>
+  </>;
 }
