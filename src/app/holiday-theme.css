@@ -376,3 +376,180 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator { filter: invert
   .hero, .date-ticket, .dish-card, .signup-dialog, .balance-card, .drinks-card { border: 1px solid CanvasText; }
   .button-primary { border: 1px solid ButtonText; }
 }
+
+
+/*
+ * Winteravond: a quieter, more human Christmas and New Year look.
+ * Restrained ink, warm paper tones, flat surfaces, real typographic hierarchy.
+ * No glowing buttons, floating cards, star fields, gradients or animation.
+ */
+:root {
+  --paper: #111915;
+  --white: #1c2922;
+  --ink: #f0eee6;
+  --muted: #b8c0b8;
+  --green: #315e48;
+  --green-soft: #263c2e;
+  --line: #43534a;
+  --orange: #c5ad82;
+  --holiday-gold: #c5ad82;
+  --holiday-cream: #f0eee6;
+  --holiday-pine: #263e31;
+  --holiday-wine: #503a3d;
+  --holiday-surface: #1a2821;
+  --holiday-surface-high: #26352c;
+}
+html, body { background: var(--paper); }
+body { background-attachment: scroll; }
+.site-header {
+  position: relative;
+  max-width: 1184px;
+  background: var(--paper);
+  border-color: var(--line);
+}
+.site-header::after, .hero::before, .little-star { display: none; }
+.brand-mark { color: var(--holiday-gold); filter: none; }
+.brand-dot, .footer-brand { color: var(--holiday-gold); }
+.button {
+  border-radius: 5px;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.button:hover:not(:disabled), .dish-card:hover { transform: none; }
+.button-primary {
+  background: var(--green);
+  color: var(--holiday-cream);
+  border: 1px solid #63816b;
+  box-shadow: none;
+}
+.button-primary:hover:not(:disabled) {
+  background: #3c7057;
+  border-color: #a8bb9a;
+  box-shadow: none;
+}
+.button-outline { background: transparent; border-color: #677569; color: var(--ink); }
+.button-outline:hover:not(:disabled) { background: #283c2f; border-color: #99a68e; }
+button:focus-visible, a:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--holiday-gold);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--holiday-gold) !important;
+  box-shadow: none;
+}
+.hero {
+  position: relative;
+  isolation: auto;
+  overflow: visible;
+  margin: 12px 0 32px;
+  padding: 42px 44px;
+  border: 1px solid #516456;
+  border-radius: 7px;
+  background: #1d2b23;
+  box-shadow: none;
+}
+.hero-copy { max-width: 650px; }
+.hero h1 {
+  color: var(--ink);
+  text-shadow: none;
+  text-wrap: balance;
+}
+.hero-intro { color: #d7c5a4; }
+.hero-text { color: #c9d0c7; }
+.eyebrow, .eyebrow.muted { letter-spacing: 1.1px; color: #d1bc94; }
+.eyebrow > span { background: #d1bc94; box-shadow: none; }
+.date-ticket {
+  background: #493639;
+  color: var(--ink);
+  border: 1px solid #987a69;
+  border-radius: 5px;
+  transform: none;
+  box-shadow: none;
+}
+.ticket-divider::before, .ticket-divider::after { display: none; }
+.ticket-top, .ticket-line svg, .calendar-link svg { color: #d9bb8d; }
+.date-main > strong { color: #f5ecdd; }
+.date-main > div { color: #efdfc6; }
+.date-main b { color: #d5c1bb; }
+.ticket-caption {
+  transform: none;
+  font-size: 18px;
+  font-style: normal;
+  color: #cdb68d;
+}
+.overview-bar {
+  padding: 19px 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+}
+.overview-bar .share-link { color: #dec7a1; }
+.section-heading h2 { letter-spacing: -.7px; }
+.count-badge { background: #2b4736; border-color: #526a54; }
+.filter, .search, .diet-filter, .extra-details,
+input:not([type=checkbox]), select, textarea { border-radius: 5px; }
+.filter { background: #1e2c25; border-color: #455a4e; color: #e4e8df; }
+.filter:hover { background: #2d4033; }
+.filter.active { background: #315e48; border-color: #86a38a; color: #fff; }
+.search { background: #19271f; border-color: #506057; }
+.search:focus-within { border-color: #c5ad82; box-shadow: none; }
+.search input, .search input:focus, .search input:focus-visible {
+  box-shadow: none;
+  background: transparent;
+}
+.diet-filter { background: #1e3027; border-color: #506057; }
+.diet-filter.selected { background: #2d5039; }
+.dish-card, .my-event-card, .editor-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: none;
+}
+.dish-card { transition: border-color .15s ease; }
+.dish-card:hover { border-color: #9b937b; box-shadow: none; }
+.dish-card h3 { color: #f0eee6; }
+.dish-emoji, .category-groente .dish-emoji { background: #2f4638; }
+.category-zoet .dish-emoji { background: #523f43; }
+.add-card, .empty-state {
+  background: #18261e;
+  border-color: #657263;
+  color: #e2d0ab;
+  border-radius: 6px;
+}
+.add-card:hover { background: #24382a; }
+.balance-card {
+  background: #263d30;
+  border-color: #536e58;
+  border-radius: 6px;
+}
+.progress-track > span { background: #c7b48d; }
+.drinks-card {
+  background: #3b3032;
+  border-color: #786164;
+  border-radius: 6px;
+}
+.signup-dialog {
+  background: #1a2821;
+  color: var(--ink);
+  border: 1px solid #8b8571;
+  border-radius: 8px;
+  box-shadow: 0 12px 38px #050907cc;
+}
+.dialog-content { background: transparent; }
+.toast { background: #315e48; border-radius: 5px; box-shadow: 0 4px 18px #060f0a99; }
+.my-event-card:hover { background: #28382d; }
+@media(max-width: 1000px) { .hero { padding: 34px 30px; } }
+@media(max-width: 760px) { .hero { padding: 29px 24px; border-radius: 6px; } }
+@media(max-width: 520px) {
+  .hero { padding: 26px 20px; margin: 8px 0 24px; }
+  .date-ticket { transform: none; box-shadow: none; }
+  .hero-aside { padding: 0; }
+  .overview-bar .share-link { border-color: #455a4e; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .button, .dish-card { transition: none; }
+}
