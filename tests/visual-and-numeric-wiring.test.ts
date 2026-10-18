@@ -17,7 +17,7 @@ test('the actual page imports the Christmas mockup stylesheet with visible falli
   assert.match(css, /snow-crystal/);
   assert.match(css, /alem-kerk-sneeuw\.webp/);
   assert.match(atmosphere, /length: 112/);
-  assert.match(css, /prefers-reduced-motion:reduce/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.equal(defaultEvent.startsAt,'2026-12-20T15:00:00.000Z');
 });
 
