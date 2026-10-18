@@ -1,8 +1,8 @@
-# Functioneel onderzoek BringToGo
+# Functioneel onderzoek · Buurtjes tussen de Kerken
 
 Onderzocht op 18 oktober 2026. Alleen officiële product- en hulppagina's gebruikt. Dit document vergelijkt functionaliteit, geen actuele abonnementprijzen.
 
-| Dienst | Gecontroleerde mogelijkheden | Keuze voor BringToGo |
+| Dienst | Gecontroleerde mogelijkheden | Keuze voor deze buurtborrel |
 | --- | --- | --- |
 | [Datumprikker](https://support.datumprikker.nl/article/12-account-aanmaken-voor-afspraak-aanmaken) | Een afspraak aanmaken zonder account; naam en e-mail; persoonlijke beheerlink via e-mail. Een account is een afzonderlijke optie. | Geen verplichte accountregistratie. Naam en hapje volstaan. Persoonlijke toegangskoppeling om later terug te komen; voor de basis is geen mailprovider nodig. |
 | [Datumprikker WhatsApp](https://datumprikker.nl/algemeen/whatsapp) | Uitnodigingslink delen zonder vooraf e-mailadressen van deelnemers te verzamelen. | Één gedeelde uitnodigingslink, apparaatdeelknop en klembordalternatief. |

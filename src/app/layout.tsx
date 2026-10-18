@@ -5,7 +5,7 @@ import './christmas-experience.css';
 import ChristmasAtmosphere from '@/components/christmas-atmosphere';
 export const viewport: Viewport = { themeColor: '#0a1c16', colorScheme: 'dark' };
 export const metadata: Metadata = {
-  title: 'Pré-kerst buurtborrel · BringToGo', description: 'Buurtborrel in Hart van Alem, 20 december om 16.00 uur. Kijk welke hapjes de buren meenemen en voeg jouw hapje toe.',
+  title: 'Buurtjes tussen de Kerken · 20 december · Alem', description: 'De buurtjes tussen de kerken in Alem komen op 20 december vanaf 16.00 uur samen bij Hart van Alem. Bekijk wie welk hapje meeneemt.',
   robots: { index: false, follow: false },
 };
 export default function RootLayout({ children }: Readonly<{children:React.ReactNode}>) {

@@ -62,25 +62,25 @@ export default function EventBoard({eventId}:{eventId:string}) {
   function patch<K extends keyof ContributionInput>(key:K,value:ContributionInput[K]){setForm(f=>({...f,[key]:value}));}
   async function share() {
     const url=`${window.location.origin}/`;
-    try { if(navigator.share) await navigator.share({title:event?.title,text:'Wat neem jij mee? Kies je hapje op BringToGo.',url});else {await navigator.clipboard.writeText(url);setToast('Uitnodigingslink gekopieerd. Plak hem in de buurtapp!');} }catch(e){if((e as Error).name!=='AbortError')setToast(`Deel deze link: ${url}`);}
+    try { if(navigator.share) await navigator.share({title:event?.title,text:'Buurtjes tussen de Kerken · 20 december in Alem. Bekijk de hapjeslijst en zet jouw schaaltje erbij.',url});else {await navigator.clipboard.writeText(url);setToast('Uitnodigingslink gekopieerd. Plak hem in de buurtapp!');} }catch(e){if((e as Error).name!=='AbortError')setToast(`Deel deze link: ${url}`);}
   }
   async function saveAccess() {
     try {
       const {token}=await api('/api/access','POST',{action:'export'});
       const url=`${window.location.origin}/toegang#token=${token}&event=${encodeURIComponent(eventId)}`;
-      download('bringtogo-persoonlijke-link.txt',`Jouw persoonlijke toegang tot BringToGo\n\n${url}\n\nBewaar deze link voor jezelf. Hiermee kun je jouw bijdragen en jouw bijeenkomsten wijzigen. Deel de gewone uitnodigingslink met je gasten.\n`,'text/plain;charset=utf-8');
+      download('buurtjes-tussen-de-kerken-toegang.txt',`Jouw persoonlijke toegang tot Buurtjes tussen de Kerken\n20 december · Alem\n\n${url}\n\nBewaar deze link voor jezelf. Hiermee kun je uitsluitend jouw eigen hapjes wijzigen of verwijderen. Deel de gewone uitnodigingslink met de buurt.\n`,'text/plain;charset=utf-8');
       setToast('Je persoonlijke link is gedownload. Bewaar hem voor jezelf.');
     } catch(e){setToast((e as Error).message);}
   }
   function exportList() {
     const rows=[['Naam','Gerecht','Categorie','Aantal hapjes','Personen huishouden','Dieetlabels','Opmerking','Dieetwensen'],...items.map(c=>[c.name,c.dish,categories.find(k=>k.id===c.category)?.label,c.portions,c.attendees,c.diets.join(', '),c.notes,c.dietaryNeeds])];
-    download('bringtogo-hapjes.csv','\uFEFF'+rows.map(r=>r.map(csvCell).join(';')).join('\r\n'),'text/csv;charset=utf-8');
+    download('buurtjes-tussen-de-kerken-hapjes.csv','\uFEFF'+rows.map(r=>r.map(csvCell).join(';')).join('\r\n'),'text/csv;charset=utf-8');
   }
   if(manage&&state)return <EventEditor initial={state.event} onSaved={()=>{setManage(false);void refresh();}} onCancel={()=>setManage(false)}/>;
   return <><Header/><main className="page-shell">
     <div className="breadcrumb"><span>Buurtborrel in Alem</span><span>/</span><span>{event?.location||'Hart van Alem'}</span></div>
     <section className="hero" aria-labelledby="event-title">
-      <div className="hero-copy"><div className="eyebrow"><span/> EEN HAPJE MEENEMEN</div><h1 id="event-title">{event?.title||'Even de tafel dekken…'}</h1><p className="hero-intro">Neem iets lekkers mee.</p><p className="hero-text">{event?.description||'De uitnodiging wordt opgehaald.'}</p>
+      <div className="hero-copy"><div className="eyebrow"><span/> 20 DECEMBER · BUURTJES TUSSEN DE KERKEN</div><h1 id="event-title">{event?.title||'Even de tafel dekken…'}</h1><p className="hero-intro">Neem iets lekkers mee.</p><p className="hero-text">{event?.description||'De uitnodiging wordt opgehaald.'}</p>
         <div className="hero-actions"><button className="button button-primary" onClick={()=>openForm()} disabled={!state||state.event.closed}><Plus size={19}/> {state?.event.closed?'Aanmelden gesloten':'Ik neem iets mee'}</button><span className="no-account"><Check size={15}/> Alleen je naam en je hapje</span></div>
       </div>
       <figure className="alem-winter-photo" role="img" aria-label="Het besneeuwde kerkje en de dorpsstraat in Alem"><figcaption>Winter in Alem</figcaption></figure>

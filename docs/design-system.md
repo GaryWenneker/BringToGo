@@ -1,11 +1,15 @@
-# BringToGo · Winteravond
+# Buurtjes tussen de Kerken · Winterfeest op 20 december
 
-De stijl van BringToGo is een sobere, donkere uitnodiging voor mensen die samen iets organiseren. De decemberse sfeer zit in de kleuren, niet in animaties en decoraties. De ervaring moet vertrouwd en eenvoudig aanvoelen, alsof je een nette uitnodiging van een buur ontvangt.
+De naam van de website is **Buurtjes tussen de Kerken** en de datumregel in de header luidt **20 december · Alem**. Deze website is alleen voor de buurtborrel in Hart van Alem. De actuele live vormgeving combineert donker dennengroen en bordeaux met warme gouden kerstlampjes, vallende sneeuw, sterren en de foto van het besneeuwde kerkje. De effecten schakelen uit bij verminderde beweging. De eerdere sobere 'Winteravond'-richtlijnen hieronder vormen de basis voor leesbaarheid, niet een verbod op feestelijke accenten.
+
+# Oorspronkelijke Winteravond-basis
+
+De basisstijl van de website is een sobere, donkere uitnodiging voor mensen die samen iets organiseren. De decemberse sfeer zit in de kleuren, niet in animaties en decoraties. De ervaring moet vertrouwd en eenvoudig aanvoelen, alsof je een nette uitnodiging van een buur ontvangt.
 
 ## Visuele uitgangspunten
 
 - **Rustig en eenvoudig:** vlakke achtergronden, duidelijke typografie, ingetogen kleuren, nauwelijks schaduw, geen kleurverlopen of glows.
-- **Feestelijk zonder kerstclichés:** nachtdonker groen, warm crème, gedempt goud en een bordeaux datumkaart. Geen knipperende sterren, vallende sneeuw of glanzende verloopknoppen.
+- **Feestelijk zonder kerstclichés:** nachtdonker groen, warm crème, gedempt goud en een bordeaux datumkaart. Voorkom dat decoraties tekst of bediening overlappen.
 - **Echte buurtcommunicatie:** korte, gewone Nederlandse teksten zonder reclamekreten. Duidelijke knop: 'Ik neem iets mee'.
 - **De taak staat centraal:** bekijk bestaande hapjes en voeg er zonder account een toe. Verder niets verplicht.
 
