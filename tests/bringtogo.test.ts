@@ -81,13 +81,20 @@ test('personal overview contains only events owned or joined by the current sess
   assert.ok(events.some(e=>e.id===a&&e.isOrganizer));assert.ok(events.some(e=>e.id===b&&!e.isOrganizer));
   assert.equal((await repo.overview('never-joined')).length,0);
 });
-test('organizers can correct a guest dish without claiming its ownership',async()=>{
-  const event=await repo.create('correction-host',{...defaultEvent}),id=await repo.save(event,'guest',input());
-  await repo.update(event,'correction-host',{...defaultEvent,closed:true});
-  await repo.save(event,'correction-host',input({dish:'Mini-quiches met kaas'}),id);
-  assert.equal((await repo.state(event,'guest')).contributions[0].mine,true);
-  assert.equal((await repo.state(event,'correction-host')).contributions[0].mine,false);
-  await repo.remove(event,'correction-host',id);assert.equal((await repo.state(event,'guest')).contributions.length,0);
+test('organizer cannot edit or delete another participant’s dish, even though they manage the event',async()=>{
+  const event=await repo.create('organizer',{...defaultEvent});
+  const id=await repo.save(event,'guest',input());
+  await assert.rejects(repo.save(event,'organizer',input({dish:'Wijziging door beheerder'}),id),{status:403});
+  await assert.rejects(repo.remove(event,'organizer',id),{status:403});
+  const state=await repo.state(event,'guest');
+  assert.equal(state.contributions[0].dish,'Mini-quiches');
+  assert.equal(state.contributions[0].mine,true);
+  assert.equal((await repo.state(event,'organizer')).contributions[0].mine,false);
+  // Editing and removing by the original contributor still work.
+  await repo.save(event,'guest',input({dish:'Nieuwe mini-quiches'}),id);
+  assert.equal((await repo.state(event,'guest')).contributions[0].dish,'Nieuwe mini-quiches');
+  await repo.remove(event,'guest',id);
+  assert.equal((await repo.state(event,'guest')).contributions.length,0);
 });
 test('SQL-like input is stored literally, never executed',async()=>{
   const event=await repo.create('host',{...defaultEvent});
